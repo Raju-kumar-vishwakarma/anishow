@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,15 +35,29 @@ interface EditAnimeDialogProps {
 
 export default function EditAnimeDialog({ anime, categories, open, onOpenChange, onSuccess }: EditAnimeDialogProps) {
   const { toast } = useToast();
-  const [title, setTitle] = useState(anime?.title || "");
-  const [description, setDescription] = useState(anime?.description || "");
-  const [categoryId, setCategoryId] = useState(anime?.category_id || "");
-  const [rating, setRating] = useState(anime?.rating?.toString() || "");
-  const [status, setStatus] = useState(anime?.status || "ongoing");
-  const [releaseYear, setReleaseYear] = useState(anime?.release_year?.toString() || "");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [rating, setRating] = useState("");
+  const [status, setStatus] = useState("ongoing");
+  const [releaseYear, setReleaseYear] = useState("");
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
-  const [thumbnailPreview, setThumbnailPreview] = useState(anime?.thumbnail_url || "");
+  const [thumbnailPreview, setThumbnailPreview] = useState("");
   const [uploading, setUploading] = useState(false);
+
+  // Update form when anime changes
+  useEffect(() => {
+    if (anime) {
+      setTitle(anime.title || "");
+      setDescription(anime.description || "");
+      setCategoryId(anime.category_id || "");
+      setRating(anime.rating?.toString() || "");
+      setStatus(anime.status || "ongoing");
+      setReleaseYear(anime.release_year?.toString() || "");
+      setThumbnailPreview(anime.thumbnail_url || "");
+      setThumbnailFile(null);
+    }
+  }, [anime]);
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {

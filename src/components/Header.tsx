@@ -1,5 +1,4 @@
 import { LogOut, Shield, Heart } from "lucide-react";
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
@@ -12,30 +11,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-
 const Header = () => {
   const { user, isAdmin, signOut } = useAuth();
-  const [showHeader, setShowHeader] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY && currentScrollY > 60) {
-        setShowHeader(false); // scroll down
-      } else {
-        setShowHeader(true); // scroll up
-      }
-      setLastScrollY(currentScrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60 transition-transform duration-300 ${showHeader ? "translate-y-0" : "-translate-y-full"}`}
-    >
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-8">
@@ -56,10 +36,12 @@ const Header = () => {
               )}
             </nav>
           </div>
+          
           <div className="flex items-center gap-4">
             <div className="hidden sm:block flex-1">
               <SearchBar />
             </div>
+            
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

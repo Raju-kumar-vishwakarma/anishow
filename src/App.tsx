@@ -12,6 +12,7 @@ import Watchlist from "./pages/Watchlist";
 import AdminDashboard from "./pages/admin/Dashboard";
 import Categories from "./pages/admin/Categories";
 import AnimeManagement from "./pages/admin/Anime";
+import Episodes from "./pages/admin/Episodes";
 import Upload from "./pages/admin/Upload";
 import CarouselManagement from "./pages/admin/Carousel";
 import NotFound from "./pages/NotFound";
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/categories" element={<Categories />} />
             <Route path="/admin/anime" element={<AnimeManagement />} />
+            <Route path="/admin/episodes" element={<Episodes />} />
             <Route path="/admin/upload" element={<Upload />} />
             <Route path="/admin/carousel" element={<CarouselManagement />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

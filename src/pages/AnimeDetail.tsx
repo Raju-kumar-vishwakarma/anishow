@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 import Header from "@/components/Header";
 import VideoPlayer from "@/components/VideoPlayer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Trash2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface Anime {
   id: string;
@@ -24,6 +27,8 @@ interface Episode {
 
 export default function AnimeDetail() {
   const { id } = useParams();
+  const { isAdmin } = useAuth();
+  const { toast } = useToast();
   const [anime, setAnime] = useState<Anime | null>(null);
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
@@ -56,6 +61,34 @@ export default function AnimeDetail() {
       }
     }
     setLoading(false);
+  };
+
+  const handleDeleteEpisode = async (episodeId: string) => {
+    if (!confirm("Are you sure you want to delete this episode?")) return;
+    
+    const { error } = await supabase
+      .from("anime_episodes")
+      .delete()
+      .eq("id", episodeId);
+
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: "Episode deleted successfully",
+      });
+      
+      // Reload episodes and set first episode if current was deleted
+      await loadAnimeData();
+      if (currentEpisode?.id === episodeId && episodes.length > 1) {
+        setCurrentEpisode(episodes.find(ep => ep.id !== episodeId) || null);
+      }
+    }
   };
 
   if (loading) {
@@ -134,15 +167,25 @@ export default function AnimeDetail() {
               <CardContent>
                 <div className="space-y-2 max-h-[600px] overflow-y-auto">
                   {episodes.map((episode) => (
-                    <Button
-                      key={episode.id}
-                      variant={currentEpisode?.id === episode.id ? "default" : "outline"}
-                      className="w-full justify-start"
-                      onClick={() => setCurrentEpisode(episode)}
-                    >
-                      Episode {episode.episode_number}
-                      {episode.title && <span className="ml-2 truncate">- {episode.title}</span>}
-                    </Button>
+                    <div key={episode.id} className="flex gap-2">
+                      <Button
+                        variant={currentEpisode?.id === episode.id ? "default" : "outline"}
+                        className="flex-1 justify-start"
+                        onClick={() => setCurrentEpisode(episode)}
+                      >
+                        Episode {episode.episode_number}
+                        {episode.title && <span className="ml-2 truncate">- {episode.title}</span>}
+                      </Button>
+                      {isAdmin && (
+                        <Button
+                          variant="destructive"
+                          size="icon"
+                          onClick={() => handleDeleteEpisode(episode.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
                   ))}
                   {episodes.length === 0 && (
                     <p className="text-center text-muted-foreground py-8">
