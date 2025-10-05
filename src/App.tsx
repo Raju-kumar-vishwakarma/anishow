@@ -16,7 +16,8 @@ import Episodes from "./pages/admin/Episodes";
 import Upload from "./pages/admin/Upload";
 import CarouselManagement from "./pages/admin/Carousel";
 import NotFound from "./pages/NotFound";
-
+import Contact from "./pages/ContactPage"
+ 
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/anime/:id" element={<AnimeDetail />} />
             <Route path="/watchlist" element={<Watchlist />} />
             <Route path="/admin" element={<AdminDashboard />} />

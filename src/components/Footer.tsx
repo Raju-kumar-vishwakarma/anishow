@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { Facebook, Twitter, Instagram, Youtube, Github,Linkedin } from "lucide-react";
+
 
 export default function Footer() {
   return (
@@ -16,17 +17,16 @@ export default function Footer() {
               Stream thousands of episodes in high quality with multiple language options.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              
+              <a href="https://www.instagram.com/raju_vishwa.karma/" target="blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Youtube className="h-5 w-5" />
+              
+              <a href="https://github.com/Raju-kumar-vishwakarma" target="blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <Github className="h-5 w-5" />
+              </a>
+              <a href="https://www.linkedin.com/in/raju-kumar-a134b9342/" target="blank" rel="noopener noreferrer"  className="text-muted-foreground hover:text-primary transition-colors">
+                <Linkedin className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -78,9 +78,9 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+               <Link to="/contact" className="text-foreground hover:text-primary transition-colors flex items-center gap-2">
                   Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -93,3 +93,4 @@ export default function Footer() {
     </footer>
   );
 }
+

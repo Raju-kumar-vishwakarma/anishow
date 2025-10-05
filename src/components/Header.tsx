@@ -20,7 +20,7 @@ const Header = () => {
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-8">
             <Link to="/">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary via-electric to-hotpink bg-clip-text text-transparent cursor-pointer">
+              <h1 className="text-2xl font-bold  from-primary via-electric to-hotpink bg-clip-text text-white cursor-pointer">
                 AniShow
               </h1>
             </Link>
