@@ -20,6 +20,7 @@ import CarouselManagement from "./pages/admin/Carousel";
 import NotFound from "./pages/NotFound";
 import UploadMovie from "./pages/admin/uploadmovie";
 
+
 const queryClient = new QueryClient();
 
 const App = () => (
