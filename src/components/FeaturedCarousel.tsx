@@ -52,7 +52,7 @@ export default function FeaturedCarousel() {
   if (featured.length === 0) return null;
 
   return (
-    <section className="container mx-auto px-4 py-8">
+    <section className="w-full">
       <Carousel
         opts={{
           align: "start",
@@ -68,7 +68,7 @@ export default function FeaturedCarousel() {
         <CarouselContent>
           {featured.map((anime) => (
             <CarouselItem key={anime.id}>
-              <Card className="relative overflow-hidden border-0 rounded-2xl aspect-[16/9] sm:aspect-[21/9] h-auto min-h-[300px] sm:min-h-[400px] lg:min-h-[500px]">
+              <Card className="relative border-0 rounded-2xl h-auto min-h-[300px] sm:min-h-[450px] lg:min-h-[600px] flex mb-9">
                 <div 
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
@@ -77,10 +77,15 @@ export default function FeaturedCarousel() {
                       : 'linear-gradient(135deg, hsl(270 80% 65% / 0.2), hsl(200 90% 55% / 0.2))'
                   }}
                 >
+                  {/* Gradient Overlay for Left, Right, and Bottom Fade (as previously implemented) */}
+                  <div className="absolute inset-0 
+                    bg-gradient-to-r from-background/70 via-background/0 to-background/70
+                    lg:bg-gradient-to-r lg:from-background/70 lg:via-background/0 lg:to-background/70
+                  " />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
                 </div>
                 
-                <div className="relative h-full flex items-end p-8 md:p-12">
+                <div className="relative h-full flex items-end p-8 md:p-12 self-end">
                   <div className="max-w-2xl space-y-4">
                     <div className="flex gap-2 flex-wrap">
                       <Badge className="bg-primary/20 text-primary border-primary/50">
@@ -99,12 +104,12 @@ export default function FeaturedCarousel() {
                       )}
                     </div>
                     
-                    <h2 className="text-3xl md:text-5xl font-bold leading-tight">
+                    <h2 className="text-2xl md:text-5xl font-bold leading-tight line-clamp-1">
                       {anime.title}
                     </h2>
                     
                     {anime.description && (
-                      <p className="text-base md:text-lg text-muted-foreground line-clamp-3">
+                      <p className="text-base md:text-lg text-muted-foreground line-clamp-2">
                         {anime.description}
                       </p>
                     )}
@@ -128,8 +133,9 @@ export default function FeaturedCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-4" />
-        <CarouselNext className="right-4" />
+        {/* Navigation arrows are now active */}
+        {/* <CarouselPrevious className="left-4" />
+        <CarouselNext className="right-4" /> */}
       </Carousel>
     </section>
   );

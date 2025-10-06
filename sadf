@@ -1,0 +1,169 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import Header from "@/components/Header";
+import FeaturedCarousel from "@/components/FeaturedCarousel";
+import ContinueWatching from "@/components/ContinueWatching";
+import MoviesSection from "@/components/MoviesSection";
+import Footer from "@/components/Footer";
+import { Card, CardContent } from "@/components/ui/card";
+
+
+interface Anime {
+  id: string;
+  title: string;
+  thumbnail_url: string | null;
+  rating: number | null;
+    type: string | null;
+  categories: { name: string } | null;
+}
+
+const Index = () => {
+  const [seriesList, setSeriesList] = useState<Anime[]>([]);
+  const [moviesList, setMoviesList] = useState<Anime[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadContent();
+  }, []);
+
+  const loadContent = async () => {
+    const [seriesData, moviesData] = await Promise.all([
+      supabase
+        .from("anime")
+        .select("id, title, thumbnail_url, rating, type, categories(name)")
+        .eq("type", "series")
+        .order("created_at", { ascending: false })
+        .limit(12),
+      supabase
+        .from("anime")
+        .select("id, title, thumbnail_url, rating, type, categories(name)")
+        .eq("type", "movie")
+        .order("created_at", { ascending: false })
+        .limit(12)
+    ]);
+    
+    if (seriesData.data) setSeriesList(seriesData.data);
+    if (moviesData.data) setMoviesList(moviesData.data);
+
+
+     setLoading(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-hero flex flex-col">
+      <Header />
+      <main className="flex-1">
+        <FeaturedCarousel />
+        <ContinueWatching />
+        <MoviesSection />
+
+
+                {/* Latest Series Section */}
+
+
+                 <div className="flex justify-between items-center mb-8">
+            <h2 className="text-3xl font-bold">Latest Series</h2>
+            <Link to="/series" className="text-primary hover:underline">View All</Link>
+          </div>
+          {loading ? (
+            <p className="text-center text-muted-foreground">Loading...</p>
+
+             ) : seriesList.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+
+
+
+                {seriesList.map((anime) => (
+                <Link key={anime.id} to={`/anime/${anime.id}`}>
+                  <Card className="anime-card group overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div className="aspect-[3/4] relative overflow-hidden bg-muted">
+                      {anime.thumbnail_url ? (
+                        <>
+                          <img
+                            src={anime.thumbnail_url}
+                            alt={anime.title}
+                            className="anime-img w-full h-full object-cover"
+                          />
+                          <div className="anime-overlay" />
+                        </>
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="text-muted-foreground">No Image</span>
+                        </div>
+                      )}
+                    </div>
+                    <CardContent className="p-3">
+                      <h3 className="font-semibold text-sm truncate">{anime.title}</h3>
+                      {anime.categories && (
+                        <p className="text-xs text-muted-foreground">{anime.categories.name}</p>
+                      )}
+                      {anime.rating && (
+                        <p className="text-xs text-primary">★ {anime.rating}/10</p>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground py-12"> No series available yet. Admins can add content through the admin panel.
+            </p>
+          )}
+        </section>
+
+        {/* Latest Movies Section */}
+        <section className="container mx-auto px-4 py-12">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-3xl font-bold">Latest Movies</h2>
+            <Link to="/movies" className="text-primary hover:underline">View All</Link>
+          </div>
+          {loading ? (
+            <p className="text-center text-muted-foreground">Loading...</p>
+          ) : moviesList.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+              {moviesList.map((anime) => (
+                <Link key={anime.id} to={`/anime/${anime.id}`}>
+                  <Card className="anime-card group overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div className="aspect-[3/4] relative overflow-hidden bg-muted">
+                      {anime.thumbnail_url ? (
+                        <>
+                          <img
+                            src={anime.thumbnail_url}
+                            alt={anime.title}
+                            className="anime-img w-full h-full object-cover"
+                          />
+                          <div className="anime-overlay" />
+                        </>
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="text-muted-foreground">No Image</span>
+                        </div>
+                      )}
+                    </div>
+                    <CardContent className="p-3">
+                      <h3 className="font-semibold text-sm truncate">{anime.title}</h3>
+                      {anime.categories && (
+                        <p className="text-xs text-muted-foreground">{anime.categories.name}</p>
+                      )}
+                      {anime.rating && (
+                        <p className="text-xs text-primary">★ {anime.rating}/10</p>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground py-12">
+              No movies available yet. Admins can add content through the admin panel.
+            </p>
+          )}
+        </section>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default Index;
