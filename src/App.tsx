@@ -21,6 +21,7 @@ import UploadMovie from "./pages/admin/UploadMovie";
 import MoviesManagement from "./pages/admin/Movies";
 import CarouselManagement from "./pages/admin/Carousel";
 import NotFound from "./pages/NotFound";
+import ContactPage from "./pages/ContactPage";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,11 @@ const App = () => (
           <Route path="/history" element={<History />} />
           <Route path="/series" element={<Series />} />
           <Route path="/movies" element={<Movies />} />
+          <Route path="/contact" element={<ContactPage />} />
+
+
+
+
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/categories" element={<Categories />} />
             <Route path="/admin/anime" element={<AnimeManagement />} />

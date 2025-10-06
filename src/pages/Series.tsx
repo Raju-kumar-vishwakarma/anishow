@@ -59,20 +59,22 @@ const Series = () => {
     <div className="min-h-screen bg-gradient-hero flex flex-col">
       <Header />
       <main className="flex-1 container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-primary via-electric to-hotpink bg-clip-text text-transparent">
-          Anime Series
-        </h1>
+        <h1 className="text-4xl font-bold mb-4">Anime Serises</h1>
+          <p className="text-muted-foreground mb-6">
+            Discover amazing anime series from various genres
+          </p>
 
         <div className="relative mb-8 max-w-2xl">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
+           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground text-white" />
           <Input
             type="text"
             placeholder="Search series..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-background/50 backdrop-blur"
+            className="pl-10 bg-background/50 "
           />
         </div>
+
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
