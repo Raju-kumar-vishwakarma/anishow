@@ -18,7 +18,7 @@ import Episodes from "./pages/admin/Episodes";
 import Upload from "./pages/admin/Upload";
 import CarouselManagement from "./pages/admin/Carousel";
 import NotFound from "./pages/NotFound";
-import UploadMovie from "./pages/admin/uploadmovie";
+
 
 
 const queryClient = new QueryClient();
@@ -43,7 +43,7 @@ const App = () => (
             <Route path="/admin/anime" element={<AnimeManagement />} />
             <Route path="/admin/episodes" element={<Episodes />} />
             <Route path="/admin/upload" element={<Upload />} />
-            <Route path="/admin/upload-movie" element={<UploadMovie />} />
+            {/* <Route path="/admin/upload-movie" element={<UploadMovie />} /> */}
             <Route path="/admin/carousel" element={<CarouselManagement />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
