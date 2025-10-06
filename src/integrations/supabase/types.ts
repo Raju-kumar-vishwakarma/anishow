@@ -26,6 +26,7 @@ export type Database = {
           thumbnail_url: string | null
           title: string
           total_episodes: number | null
+          type: string | null
           updated_at: string
         }
         Insert: {
@@ -39,6 +40,7 @@ export type Database = {
           thumbnail_url?: string | null
           title: string
           total_episodes?: number | null
+          type?: string | null
           updated_at?: string
         }
         Update: {
@@ -52,11 +54,48 @@ export type Database = {
           thumbnail_url?: string | null
           title?: string
           total_episodes?: number | null
+          type?: string | null
           updated_at?: string
         }
         Relationships: [
           {
             foreignKeyName: "anime_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      anime_categories: {
+        Row: {
+          anime_id: string
+          category_id: string
+          created_at: string | null
+          id: string
+        }
+        Insert: {
+          anime_id: string
+          category_id: string
+          created_at?: string | null
+          id?: string
+        }
+        Update: {
+          anime_id?: string
+          category_id?: string
+          created_at?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "anime_categories_anime_id_fkey"
+            columns: ["anime_id"]
+            isOneToOne: false
+            referencedRelation: "anime"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "anime_categories_category_id_fkey"
             columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "categories"
@@ -196,6 +235,105 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      watch_history: {
+        Row: {
+          anime_id: string
+          created_at: string
+          episode_id: string
+          id: string
+          user_id: string
+          watch_duration: number
+          watched_at: string
+        }
+        Insert: {
+          anime_id: string
+          created_at?: string
+          episode_id: string
+          id?: string
+          user_id: string
+          watch_duration?: number
+          watched_at?: string
+        }
+        Update: {
+          anime_id?: string
+          created_at?: string
+          episode_id?: string
+          id?: string
+          user_id?: string
+          watch_duration?: number
+          watched_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "watch_history_anime_id_fkey"
+            columns: ["anime_id"]
+            isOneToOne: false
+            referencedRelation: "anime"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "watch_history_episode_id_fkey"
+            columns: ["episode_id"]
+            isOneToOne: false
+            referencedRelation: "anime_episodes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      watch_progress: {
+        Row: {
+          anime_id: string
+          completed: boolean
+          created_at: string
+          episode_id: string
+          id: string
+          last_watched_at: string
+          progress_seconds: number
+          total_duration: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          anime_id: string
+          completed?: boolean
+          created_at?: string
+          episode_id: string
+          id?: string
+          last_watched_at?: string
+          progress_seconds?: number
+          total_duration?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          anime_id?: string
+          completed?: boolean
+          created_at?: string
+          episode_id?: string
+          id?: string
+          last_watched_at?: string
+          progress_seconds?: number
+          total_duration?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "watch_progress_anime_id_fkey"
+            columns: ["anime_id"]
+            isOneToOne: false
+            referencedRelation: "anime"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "watch_progress_episode_id_fkey"
+            columns: ["episode_id"]
+            isOneToOne: false
+            referencedRelation: "anime_episodes"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       watchlist: {
         Row: {

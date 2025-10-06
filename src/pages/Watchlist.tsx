@@ -119,22 +119,25 @@ export default function Watchlist() {
         ) : anime.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
             {anime.map((item) => (
-              <Card key={item.id} className="group overflow-hidden border-border hover:border-primary/50 transition-all duration-300 bg-card">
+              <Card key={item.id} className="anime-card group overflow-hidden border-border hover:border-primary/50 transition-all duration-300 bg-card">
                 <Link to={`/anime/${item.id}`}>
                   <div className="relative aspect-[2/3] overflow-hidden">
                     {item.thumbnail_url ? (
-                      <img 
-                        src={item.thumbnail_url} 
-                        alt={item.title}
-                        className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
-                      />
+                      <>
+                        <img 
+                          src={item.thumbnail_url} 
+                          alt={item.title}
+                          className="anime-img object-cover w-full h-full"
+                        />
+                        <div className="anime-overlay" />
+                      </>
                     ) : (
                       <div className="w-full h-full bg-muted flex items-center justify-center">
                         <span className="text-muted-foreground">No Image</span>
                       </div>
                     )}
                     {item.rating && (
-                      <div className="absolute top-2 right-2">
+                      <div className="absolute top-2 right-2 z-10">
                         <div className="bg-primary/90 text-primary-foreground px-2 py-1 rounded-md flex items-center gap-1 text-sm">
                           <Star className="w-3 h-3 fill-current" />
                           {item.rating.toFixed(1)}

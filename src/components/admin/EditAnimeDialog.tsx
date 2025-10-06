@@ -18,6 +18,7 @@ interface Anime {
   id: string;
   title: string;
   description: string | null;
+  type?: string | null;
   rating: number | null;
   status: string | null;
   category_id: string | null;
@@ -38,6 +39,7 @@ export default function EditAnimeDialog({ anime, categories, open, onOpenChange,
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [animeType, setAnimeType] = useState("series");
   const [rating, setRating] = useState("");
   const [status, setStatus] = useState("ongoing");
   const [releaseYear, setReleaseYear] = useState("");
@@ -45,12 +47,12 @@ export default function EditAnimeDialog({ anime, categories, open, onOpenChange,
   const [thumbnailPreview, setThumbnailPreview] = useState("");
   const [uploading, setUploading] = useState(false);
 
-  // Update form when anime changes
   useEffect(() => {
     if (anime) {
       setTitle(anime.title || "");
       setDescription(anime.description || "");
       setCategoryId(anime.category_id || "");
+      setAnimeType(anime.type || "series");
       setRating(anime.rating?.toString() || "");
       setStatus(anime.status || "ongoing");
       setReleaseYear(anime.release_year?.toString() || "");
@@ -100,6 +102,7 @@ export default function EditAnimeDialog({ anime, categories, open, onOpenChange,
           title,
           description: description || null,
           category_id: categoryId || null,
+          type: animeType,
           rating: rating ? parseFloat(rating) : null,
           status,
           release_year: releaseYear ? parseInt(releaseYear) : null,
@@ -201,6 +204,19 @@ export default function EditAnimeDialog({ anime, categories, open, onOpenChange,
                     {cat.name}
                   </SelectItem>
                 ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="edit-type">Type</Label>
+            <Select value={animeType} onValueChange={setAnimeType}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="series">Series</SelectItem>
+                <SelectItem value="movie">Movie</SelectItem>
               </SelectContent>
             </Select>
           </div>

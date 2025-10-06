@@ -1,4 +1,4 @@
-import { LogOut, Shield, Heart } from "lucide-react";
+import { LogOut, Shield, Heart, History } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
@@ -20,13 +20,16 @@ const Header = () => {
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-8">
             <Link to="/">
-              <h1 className="text-2xl font-bold  from-primary via-electric to-hotpink bg-clip-text text-white cursor-pointer">
+              <h1 className="text-2xl font-bold  to-hotpink bg-clip-text text-white cursor-pointer">
                 AniShow
               </h1>
             </Link>
             <nav className="hidden md:flex gap-6">
               <Link to="/" className="text-foreground hover:text-primary transition-colors">
                 Home
+              </Link>
+              <Link to="/movies" className="text-foreground hover:text-primary transition-colors">
+                Movies
               </Link>
               {isAdmin && (
                 <Link to="/admin" className="text-foreground hover:text-primary transition-colors flex items-center gap-2">
@@ -52,6 +55,12 @@ const Header = () => {
                     <Link to="/watchlist" className="flex items-center gap-2">
                       <Heart className="h-4 w-4" />
                       My Watchlist
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/history" className="flex items-center gap-2">
+                      <History className="h-4 w-4" />
+                      Watch History
                     </Link>
                   </DropdownMenuItem>
                   {isAdmin && (

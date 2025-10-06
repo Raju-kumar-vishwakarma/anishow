@@ -50,6 +50,7 @@ All colors MUST be HSL.
     --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.5);
     
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
 
@@ -60,5 +61,31 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Consistent image animations */
+  .anime-img {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .anime-img:hover {
+    @apply scale-110 brightness-110;
+    filter: drop-shadow(0 0 20px hsl(var(--primary) / 0.5));
+  }
+
+  .anime-card {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .anime-card:hover {
+    @apply -translate-y-2 shadow-neon;
+  }
+
+  .anime-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-0 transition-opacity duration-500;
+  }
+
+  .anime-card:hover .anime-overlay {
+    @apply opacity-100;
   }
 }

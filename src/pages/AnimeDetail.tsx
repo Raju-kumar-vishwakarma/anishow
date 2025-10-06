@@ -32,6 +32,7 @@ export default function AnimeDetail() {
   const [anime, setAnime] = useState<Anime | null>(null);
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
+  const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -58,9 +59,18 @@ export default function AnimeDetail() {
       setEpisodes(episodesData);
       if (episodesData.length > 0) {
         setCurrentEpisode(episodesData[0]);
+        setCurrentEpisodeIndex(0);
       }
     }
     setLoading(false);
+  };
+
+  const handleNextEpisode = () => {
+    const nextIndex = currentEpisodeIndex + 1;
+    if (nextIndex < episodes.length) {
+      setCurrentEpisode(episodes[nextIndex]);
+      setCurrentEpisodeIndex(nextIndex);
+    }
   };
 
   const handleDeleteEpisode = async (episodeId: string) => {
@@ -121,6 +131,10 @@ export default function AnimeDetail() {
                 title={`Episode ${currentEpisode.episode_number}${
                   currentEpisode.title ? ": " + currentEpisode.title : ""
                 }`}
+                episodeId={currentEpisode.id}
+                animeId={anime.id}
+                nextEpisodeId={currentEpisodeIndex + 1 < episodes.length ? episodes[currentEpisodeIndex + 1].id : undefined}
+                onNextEpisode={handleNextEpisode}
               />
             ) : (
               <Card>
@@ -171,7 +185,10 @@ export default function AnimeDetail() {
                       <Button
                         variant={currentEpisode?.id === episode.id ? "default" : "outline"}
                         className="flex-1 justify-start"
-                        onClick={() => setCurrentEpisode(episode)}
+                        onClick={() => {
+                          setCurrentEpisode(episode);
+                          setCurrentEpisodeIndex(episodes.indexOf(episode));
+                        }}
                       >
                         Episode {episode.episode_number}
                         {episode.title && <span className="ml-2 truncate">- {episode.title}</span>}

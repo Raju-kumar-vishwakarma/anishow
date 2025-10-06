@@ -9,6 +9,8 @@ import Auth from "./pages/Auth";
 import About from "./pages/About";
 import AnimeDetail from "./pages/AnimeDetail";
 import Watchlist from "./pages/Watchlist";
+import History from "./pages/History";
+import Movies from "./pages/Movies";
 import AdminDashboard from "./pages/admin/Dashboard";
 import Categories from "./pages/admin/Categories";
 import AnimeManagement from "./pages/admin/Anime";
@@ -16,8 +18,8 @@ import Episodes from "./pages/admin/Episodes";
 import Upload from "./pages/admin/Upload";
 import CarouselManagement from "./pages/admin/Carousel";
 import NotFound from "./pages/NotFound";
-import Contact from "./pages/ContactPage"
- 
+import ContactPage from "./pages/ContactPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -31,9 +33,11 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/anime/:id" element={<AnimeDetail />} />
-            <Route path="/watchlist" element={<Watchlist />} />
+          <Route path="/watchlist" element={<Watchlist />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/movies" element={<Movies />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/categories" element={<Categories />} />
             <Route path="/admin/anime" element={<AnimeManagement />} />

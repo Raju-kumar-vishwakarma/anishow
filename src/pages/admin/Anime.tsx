@@ -10,7 +10,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, Trash2, Edit, Upload as UploadIcon } from "lucide-react";
+import { Plus, Trash2, Edit, Upload as UploadIcon, X } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import EditAnimeDialog from "@/components/admin/EditAnimeDialog";
 
 interface Category {
@@ -39,6 +40,8 @@ export default function AnimeManagement() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [animeType, setAnimeType] = useState("series");
   const [rating, setRating] = useState("");
   const [status, setStatus] = useState("ongoing");
   const [releaseYear, setReleaseYear] = useState("");
@@ -79,6 +82,14 @@ export default function AnimeManagement() {
     }
   };
 
+  const toggleCategory = (catId: string) => {
+    setSelectedCategories(prev => 
+      prev.includes(catId) 
+        ? prev.filter(id => id !== catId)
+        : [...prev, catId]
+    );
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -104,17 +115,33 @@ export default function AnimeManagement() {
         thumbnailUrl = publicUrl;
       }
 
-      const { error } = await supabase.from("anime").insert({
+      const { data, error } = await supabase.from("anime").insert({
         title,
         description: description || null,
         category_id: categoryId || null,
+        type: animeType,
         rating: rating ? parseFloat(rating) : null,
         status,
         release_year: releaseYear ? parseInt(releaseYear) : null,
         thumbnail_url: thumbnailUrl,
-      });
+      }).select();
 
       if (error) throw error;
+
+      // Insert selected categories into anime_categories junction table
+      if (data && selectedCategories.length > 0) {
+        const animeId = data[0].id;
+        const categoryInserts = selectedCategories.map(catId => ({
+          anime_id: animeId,
+          category_id: catId
+        }));
+        
+        const { error: catError } = await supabase
+          .from("anime_categories")
+          .insert(categoryInserts);
+        
+        if (catError) throw catError;
+      }
 
       toast({
         title: "Success",
@@ -123,6 +150,8 @@ export default function AnimeManagement() {
       setTitle("");
       setDescription("");
       setCategoryId("");
+      setSelectedCategories([]);
+      setAnimeType("series");
       setRating("");
       setReleaseYear("");
       setThumbnailFile(null);
@@ -210,6 +239,52 @@ export default function AnimeManagement() {
                           {cat.name}
                         </SelectItem>
                       ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label>Categories (Multiple Selection)</Label>
+                  <div className="border rounded-md p-3 min-h-[100px] bg-background">
+                    {selectedCategories.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {selectedCategories.map(catId => {
+                          const cat = categories.find(c => c.id === catId);
+                          return cat ? (
+                            <Badge 
+                              key={catId} 
+                              className="bg-primary text-primary-foreground px-3 py-1 cursor-pointer hover:bg-primary/80"
+                              onClick={() => toggleCategory(catId)}
+                            >
+                              {cat.name}
+                              <X className="ml-1 h-3 w-3" />
+                            </Badge>
+                          ) : null;
+                        })}
+                      </div>
+                    )}
+                    <div className="flex flex-wrap gap-2">
+                      {categories.filter(cat => !selectedCategories.includes(cat.id)).map((cat) => (
+                        <Badge 
+                          key={cat.id}
+                          variant="outline"
+                          className="cursor-pointer hover:bg-secondary"
+                          onClick={() => toggleCategory(cat.id)}
+                        >
+                          + {cat.name}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="type">Type</Label>
+                  <Select value={animeType} onValueChange={setAnimeType}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="series">Series</SelectItem>
+                      <SelectItem value="movie">Movie</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

@@ -25,7 +25,9 @@ export default function Upload() {
   const [selectedAnime, setSelectedAnime] = useState("");
   const [episodeNumber, setEpisodeNumber] = useState("");
   const [episodeTitle, setEpisodeTitle] = useState("");
+  const [episodeDescription, setEpisodeDescription] = useState("");
   const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [googleDriveUrl, setGoogleDriveUrl] = useState("");
   const [uploadMethod, setUploadMethod] = useState<"file" | "gdrive">("file");
   const [uploading, setUploading] = useState(false);
@@ -51,6 +53,12 @@ export default function Upload() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setVideoFile(e.target.files[0]);
+    }
+  };
+
+  const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setThumbnailFile(e.target.files[0]);
     }
   };
 
@@ -89,6 +97,26 @@ export default function Upload() {
 
     try {
       let videoUrl = googleDriveUrl;
+      let thumbnailUrl = null;
+
+      // Upload thumbnail if provided
+      if (thumbnailFile) {
+        const thumbExt = thumbnailFile.name.split(".").pop();
+        const thumbFileName = `${selectedAnime}/ep${episodeNumber}-thumb.${thumbExt}`;
+
+        setUploadProgress(20);
+        const { error: thumbError } = await supabase.storage
+          .from("anime-thumbnails")
+          .upload(thumbFileName, thumbnailFile, { upsert: true });
+
+        if (thumbError) throw thumbError;
+
+        const { data: { publicUrl: thumbUrl } } = supabase.storage
+          .from("anime-thumbnails")
+          .getPublicUrl(thumbFileName);
+
+        thumbnailUrl = thumbUrl;
+      }
 
       // Upload file if using file method
       if (uploadMethod === "file" && videoFile) {
@@ -98,7 +126,7 @@ export default function Upload() {
         setUploadProgress(50);
         const { error: uploadError } = await supabase.storage
           .from("anime-videos")
-          .upload(fileName, videoFile);
+          .upload(fileName, videoFile, { upsert: true });
 
         if (uploadError) throw uploadError;
 
@@ -116,7 +144,9 @@ export default function Upload() {
         anime_id: selectedAnime,
         episode_number: parseInt(episodeNumber),
         title: episodeTitle || null,
+        description: episodeDescription || null,
         video_url: videoUrl,
+        thumbnail_url: thumbnailUrl,
       });
 
       if (dbError) throw dbError;
@@ -130,7 +160,9 @@ export default function Upload() {
       setSelectedAnime("");
       setEpisodeNumber("");
       setEpisodeTitle("");
+      setEpisodeDescription("");
       setVideoFile(null);
+      setThumbnailFile(null);
       setGoogleDriveUrl("");
       setUploadProgress(0);
     } catch (error: any) {
@@ -192,25 +224,48 @@ export default function Upload() {
                 </Select>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="episode">Episode Number</Label>
-                  <Input
-                    id="episode"
-                    type="number"
-                    value={episodeNumber}
-                    onChange={(e) => setEpisodeNumber(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="title">Episode Title (Optional)</Label>
-                  <Input
-                    id="title"
-                    value={episodeTitle}
-                    onChange={(e) => setEpisodeTitle(e.target.value)}
-                  />
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="episode">Episode Number</Label>
+                <Input
+                  id="episode"
+                  type="number"
+                  value={episodeNumber}
+                  onChange={(e) => setEpisodeNumber(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="title">Episode Title (Optional)</Label>
+                <Input
+                  id="title"
+                  value={episodeTitle}
+                  onChange={(e) => setEpisodeTitle(e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description">Episode Description (Optional)</Label>
+                <Input
+                  id="description"
+                  value={episodeDescription}
+                  onChange={(e) => setEpisodeDescription(e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="thumbnail">Episode Thumbnail (Optional)</Label>
+                <Input
+                  id="thumbnail"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleThumbnailChange}
+                />
+                {thumbnailFile && (
+                  <p className="text-sm text-muted-foreground">
+                    Selected: {thumbnailFile.name}
+                  </p>
+                )}
               </div>
 
               {uploadMethod === "file" ? (

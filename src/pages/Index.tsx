@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import FeaturedCarousel from "@/components/FeaturedCarousel";
+import ContinueWatching from "@/components/ContinueWatching";
+import MoviesSection from "@/components/MoviesSection";
 import Footer from "@/components/Footer";
+import { Play, Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface Anime {
@@ -16,7 +19,7 @@ interface Anime {
 
 const Index = () => {
   const [animeList, setAnimeList] = useState<Anime[]>([]);
-  const [loading, setLoading] = useState(true);
+const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadAnime();
@@ -38,6 +41,9 @@ const Index = () => {
       <Header />
       <main className="flex-1">
         <FeaturedCarousel />
+        <ContinueWatching />
+        
+     
         
         <section className="container mx-auto px-4 py-12">
           <h2 className="text-3xl font-bold mb-8">Latest Anime</h2>
@@ -47,14 +53,17 @@ const Index = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
               {animeList.map((anime) => (
                 <Link key={anime.id} to={`/anime/${anime.id}`}>
-                  <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <Card className="anime-card group overflow-hidden hover:shadow-xl transition-all duration-300">
                     <div className="aspect-[3/4] relative overflow-hidden bg-muted">
                       {anime.thumbnail_url ? (
-                        <img
-                          src={anime.thumbnail_url}
-                          alt={anime.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        />
+                        <>
+                          <img
+                            src={anime.thumbnail_url}
+                            alt={anime.title}
+                            className="anime-img w-full h-full object-cover"
+                          />
+                          <div className="anime-overlay" />
+                        </>
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <span className="text-muted-foreground">No Image</span>
@@ -70,6 +79,11 @@ const Index = () => {
                         <p className="text-xs text-primary">★ {anime.rating}/10</p>
                       )}
                     </CardContent>
+                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                  <div className="bg-primary/90 rounded-full p-4">
+                    <Play className="w-8 h-8 text-primary-foreground" />
+                  </div>
+                </div>
                   </Card>
                 </Link>
               ))}
@@ -80,6 +94,11 @@ const Index = () => {
             </p>
           )}
         </section>
+           <div className="">
+            <hr className=" w-[80%] mx-auto"></hr>
+            <MoviesSection />
+            
+           </div>
       </main>
       <Footer />
     </div>
