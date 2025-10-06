@@ -4,7 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import Header from "@/components/Header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Upload, ListVideo, FolderTree, Clapperboard, PlaySquare } from "lucide-react";
+import { Upload, ListVideo, FolderTree, Clapperboard, PlaySquare, Film } from "lucide-react";
 
 export default function AdminDashboard() {
   const { isAdmin, loading } = useAuth();
@@ -80,11 +80,22 @@ export default function AdminDashboard() {
           <Card className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => navigate("/admin/upload")}>
             <CardHeader>
               <Upload className="h-8 w-8 text-primary mb-2" />
-              <CardTitle>Upload Videos</CardTitle>
+              <CardTitle>Upload Episodes</CardTitle>
               <CardDescription>Upload anime episodes and thumbnails</CardDescription>
             </CardHeader>
             <CardContent>
               <Button variant="outline" className="w-full">Go to Upload</Button>
+            </CardContent>
+          </Card>
+
+          <Card className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => navigate("/admin/upload-movie")}>
+            <CardHeader>
+              <Film className="h-8 w-8 text-primary mb-2" />
+              <CardTitle>Upload Movies</CardTitle>
+              <CardDescription>Upload movies with categories</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" className="w-full">Go to Movies</Button>
             </CardContent>
           </Card>
         </div>
