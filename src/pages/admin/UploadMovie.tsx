@@ -85,6 +85,7 @@ export default function UploadMovie() {
       });
       return;
     }
+    
 
     if (uploadMethod === "file" && !videoFile) {
       toast({
