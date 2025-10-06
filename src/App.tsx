@@ -16,9 +16,9 @@ import Categories from "./pages/admin/Categories";
 import AnimeManagement from "./pages/admin/Anime";
 import Episodes from "./pages/admin/Episodes";
 import Upload from "./pages/admin/Upload";
-import UploadMovie from "./pages/admin/uploadmovie";
 import CarouselManagement from "./pages/admin/Carousel";
 import NotFound from "./pages/NotFound";
+import UploadMovie from "./pages/admin/uploadmovie";
 
 const queryClient = new QueryClient();
 
