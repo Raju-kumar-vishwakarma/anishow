@@ -34,12 +34,30 @@ export default function AnimeDetail() {
   const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  // NEW STATE: Loading state specifically for the video player (2-second delay)
+  const [videoLoading, setVideoLoading] = useState(false); 
 
   useEffect(() => {
     if (id) {
       loadAnimeData();
     }
   }, [id]);
+
+  // NEW useEffect: Manages the 2-second delay after initial data load or episode change
+  useEffect(() => {
+    if (loading === false && currentEpisode) {
+      setVideoLoading(true); // Start the 2-second loading animation
+      const timer = setTimeout(() => {
+        setVideoLoading(false); 
+      }, 500); 
+
+      // Cleanup function to clear the timeout if the component unmounts or dependencies change
+      return () => clearTimeout(timer);
+    } else if (currentEpisode === null) {
+        setVideoLoading(false); // No video, so no video loading
+    }
+  }, [loading, currentEpisode]); // Dependencies: runs after initial data load or when currentEpisode changes
+
 
   const loadAnimeData = async () => {
     const { data: animeData } = await supabase
@@ -68,6 +86,7 @@ export default function AnimeDetail() {
   const handleNextEpisode = () => {
     const nextIndex = currentEpisodeIndex + 1;
     if (nextIndex < episodes.length) {
+      // NOTE: Setting currentEpisode here will trigger the new useEffect for the 2-second delay
       setCurrentEpisode(episodes[nextIndex]);
       setCurrentEpisodeIndex(nextIndex);
     }
@@ -93,7 +112,6 @@ export default function AnimeDetail() {
         description: "Episode deleted successfully",
       });
       
-      // Reload episodes and set first episode if current was deleted
       await loadAnimeData();
       if (currentEpisode?.id === episodeId && episodes.length > 1) {
         setCurrentEpisode(episodes.find(ep => ep.id !== episodeId) || null);
@@ -105,7 +123,7 @@ export default function AnimeDetail() {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-4 py-12 text-center">Loading...</div>
+        <div className="container mx-auto px-4 py-12 text-center">Loading anime data...</div>
       </div>
     );
   }
@@ -126,16 +144,27 @@ export default function AnimeDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             {currentEpisode ? (
-              <VideoPlayer
-                videoUrl={currentEpisode.video_url}
-                title={`Episode ${currentEpisode.episode_number}${
-                  currentEpisode.title ? ": " + currentEpisode.title : ""
-                }`}
-                episodeId={currentEpisode.id}
-                animeId={anime.id}
-                nextEpisodeId={currentEpisodeIndex + 1 < episodes.length ? episodes[currentEpisodeIndex + 1].id : undefined}
-                onNextEpisode={handleNextEpisode}
-              />
+              // NEW CONDITION: Show loading card if videoLoading is true
+              videoLoading ? (
+                <Card className="aspect-video flex items-center justify-center">
+                    <CardContent className="p-12 text-center">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                        <p className="mt-4 text-lg text-muted-foreground">Loading video...</p>
+                    </CardContent>
+                </Card>
+              ) : (
+                // Original VideoPlayer component when not videoLoading
+                <VideoPlayer
+                  videoUrl={currentEpisode.video_url}
+                  title={`Episode ${currentEpisode.episode_number}${
+                    currentEpisode.title ? ": " + currentEpisode.title : ""
+                  }`}
+                  episodeId={currentEpisode.id}
+                  animeId={anime.id}
+                  nextEpisodeId={currentEpisodeIndex + 1 < episodes.length ? episodes[currentEpisodeIndex + 1].id : undefined}
+                  onNextEpisode={handleNextEpisode}
+                />
+              )
             ) : (
               <Card>
                 <CardContent className="p-12 text-center">

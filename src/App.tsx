@@ -55,7 +55,7 @@ const App = () => (
             <Route path="/admin/upload-movie" element={<UploadMovie />} />
             <Route path="/admin/movies" element={<MoviesManagement />} />
             <Route path="/admin/carousel" element={<CarouselManagement />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
