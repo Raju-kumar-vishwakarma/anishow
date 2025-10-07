@@ -4,7 +4,7 @@ import ContinueWatching from "@/components/ContinueWatching";
 import MoviesSection from "@/components/MoviesSection";
 import Footer from "@/components/Footer";
 import LatastAnime from "@/components/LatastAnime";
-import Hr from "./Hr";
+import Hr from "../components/Hr";
 
 import Aniserise from "@/components/AniSerise";
 

@@ -55,6 +55,12 @@ const Header = () => {
               >
                 Movies
               </Link>
+              <Link
+                to="/manga"
+                className="text-foreground hover:text-primary transition-colors"
+              >
+                Manga
+              </Link>
               {isAdmin && (
                 <Link
                   to="/admin"
@@ -162,6 +168,13 @@ const Header = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               Movies
+            </Link>
+            <Link
+              to="/manga"
+              className="text-foreground hover:text-primary transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Manga
             </Link>
 
             {isAdmin && (

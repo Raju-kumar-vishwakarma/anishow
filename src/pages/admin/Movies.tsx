@@ -94,7 +94,7 @@ export default function Movies() {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-electric to-hotpink bg-clip-text text-transparent">
             Manage Movies
           </h1>
-          <Button variant="outline" onClick={() => navigate("/admin/dashboard")}>
+          <Button variant="outline" onClick={() => navigate("/admin")}>
             Back to Dashboard
           </Button>
         </div>

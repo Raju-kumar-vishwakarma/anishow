@@ -81,7 +81,7 @@ export default function MoviesSection() {
   if (movies.length === 0) return null;
 
   return (
-    <section className="container mx-auto px-4 py-12">
+    <section className="container mx-auto px-4 py-12 ">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-3xl font-bold">Anime Movies</h2>
         <Link 

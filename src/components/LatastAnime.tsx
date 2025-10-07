@@ -37,7 +37,7 @@ const LatastAnime = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-hero flex flex-col">
+    <div className="min-h-screen  flex flex-col">
       <main className="flex-1">
         <section className="container mx-auto px-4 py-12">
           <h2 className="text-3xl font-bold mb-8">Latest Anime</h2>

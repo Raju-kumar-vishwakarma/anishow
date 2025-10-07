@@ -54,7 +54,7 @@ const Aniserise = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-hero flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <main className="flex-1 container mx-auto px-4 py-12">
          <div className="flex items-center justify-between mb-6">
         <h2 className="text-3xl font-bold">Anime Serise</h2>
