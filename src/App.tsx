@@ -22,7 +22,9 @@ import MoviesManagement from "./pages/admin/Movies";
 import CarouselManagement from "./pages/admin/Carousel";
 import NotFound from "./pages/NotFound";
 import ContactPage from "./pages/ContactPage";
-import Manga from "./pages/manga";
+import Manga from "./pages/Manga";
+
+
 
 const queryClient = new QueryClient();
 
@@ -44,6 +46,8 @@ const App = () => (
           <Route path="/movies" element={<Movies />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/manga" element={<Manga />} />
+
+
 
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/categories" element={<Categories />} />
