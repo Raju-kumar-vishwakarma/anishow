@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import PlayOverlay from "./ui/PlayOverlay";
 
 interface ContinueWatchingItem {
   id: string;
@@ -89,6 +90,7 @@ export default function ContinueWatching() {
                       EP {item.episode.episode_number}
                     </p>
                   </div>
+                  <PlayOverlay/>
                 </div>
                 <CardContent className="p-3">
                   <h3 className="font-semibold text-sm truncate">{item.anime.title}</h3>
