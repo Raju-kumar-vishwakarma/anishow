@@ -23,8 +23,7 @@ import CarouselManagement from "./pages/admin/Carousel";
 import NotFound from "./pages/NotFound";
 import ContactPage from "./pages/ContactPage";
 import Manga from "./pages/Manga";
-
-
+import { Analytics } from "@vercel/analytics/react";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +31,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
+      <Analytics />
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
@@ -40,14 +40,12 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/about" element={<About />} />
             <Route path="/anime/:id" element={<AnimeDetail />} />
-          <Route path="/watchlist" element={<Watchlist />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/series" element={<Series />} />
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/manga" element={<Manga />} />
-
-
+            <Route path="/watchlist" element={<Watchlist />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/series" element={<Series />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/manga" element={<Manga />} />
 
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/categories" element={<Categories />} />
@@ -67,5 +65,3 @@ const App = () => (
 );
 
 export default App;
-
-
