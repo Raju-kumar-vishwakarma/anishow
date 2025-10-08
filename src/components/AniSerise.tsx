@@ -62,7 +62,7 @@ const Aniserise = () => {
           to="/series" 
           className="text-primary hover:text-primary/80 transition-colors"
         >
-          View All →
+          View All 
         </Link>
       </div>
 
