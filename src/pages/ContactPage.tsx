@@ -1,68 +1,97 @@
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import React, { useState, useEffect } from 'react'
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import React, { useState } from "react";
 
-// Updated text constant
-const FULL_TEXT = "Coming Soon......" 
-// Define the delay (in milliseconds) between each character
-const TYPING_SPEED = 150; 
-// Define the pause (in milliseconds) after the text is fully typed before it starts over
-const PAUSE_DURATION = 1500; // 1.5 seconds
+export default function Contact() {
+  const [result, setResult] = useState<string>("");
+  const ACCESS_KEY = "b1f88f58-07b2-4b1c-93f7-7bd23a1b9fbe";
 
-const ContactPage = () => {
-  const [displayedText, setDisplayedText] = useState('');
-  const [isTyping, setIsTyping] = useState(true); 
-  
-  useEffect(() => {
-    if (isTyping) {
-      let index = 0;
-      
-      // Phase 1: Typing
-      const typingInterval = setInterval(() => {
-        setDisplayedText((currentText) => {
-          if (index < FULL_TEXT.length) {
-            // Append the next character
-            return currentText + FULL_TEXT.charAt(index++);
-          } else {
-            // Text is fully typed. Stop typing, start the pause phase.
-            clearInterval(typingInterval);
-            setIsTyping(false);
-            return currentText; 
-          }
-        });
-      }, TYPING_SPEED);
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setResult("Sending...");
 
-      return () => clearInterval(typingInterval);
-      
-    } else {
-      // Phase 2: Pause and Reset
-      // Use a timeout to wait, then clear the text and set isTyping back to true to restart.
-      const pauseTimeout = setTimeout(() => {
-        setDisplayedText(''); // Clear the text
-        setIsTyping(true);    // Restart the typing phase
-      }, PAUSE_DURATION);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.append("access_key", ACCESS_KEY);
 
-      return () => clearTimeout(pauseTimeout);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setResult("✅ Message sent successfully!");
+        form.reset();
+      } else {
+        setResult("❌ Submission failed. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      setResult("⚠️ Network error. Please check your connection.");
     }
-  }, [isTyping]); // Rerun this effect whenever isTyping changes
+  };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      {/* Centers content vertically and horizontally */}
-      <section className="flex-grow flex items-center justify-center">
-        <h3 className='p-4 text-red-600 text-3xl font-bold'>
-          {displayedText}
-          
-          {/* Blinking cursor effect */}
-          <span className="inline-block w-1 bg-white ml-1 animate-pulse h-8 align-middle"></span>
-        </h3>
-      </section>
+    <>
+    <Header/>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-clip-text from-white to-gray-100 text-center px-6 py-12">
+      <div className="max-w-2xl w-full">
+        {/* Header */}
+        <p className="text-white mb-2 text-sm">Connect With Me</p>
+        <h1 className="text-4xl font-bold mb-4 text-white">Get In Touch</h1>
+        <p className="text-white mb-10 leading-relaxed">
+          Have a project in mind or just want to connect? I'm always open to new
+          opportunities, collaborations, or a quick chat about tech and ideas.
+          Feel free to reach out—let’s build something great together!
+        </p>
 
-      <Footer />
+        {/* Form */}
+        <form
+          onSubmit={onSubmit}
+          className="p-8 rounded-2xl shadow-md  space-y-6"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              required
+              className="w-full p-3 border border-gray-300 rounded-lg outline-none text-gray-700 placeholder-gray-400 focus:border-black focus:ring-1 focus:ring-black"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              className="w-full p-3 border border-gray-300 rounded-lg outline-none text-gray-700 placeholder-gray-400 focus:border-black focus:ring-1 focus:ring-black"
+            />
+          </div>
+
+          <textarea
+            name="message"
+            rows={6}
+            placeholder="Enter your message"
+            required
+            className="w-full p-3 border border-gray-300 rounded-lg outline-none text-gray-700 placeholder-gray-400 focus:border-black focus:ring-1 focus:ring-black resize-none"
+          ></textarea>
+
+          <button
+            type="submit"
+            className="w-full sm:w-auto px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-black hover:text-white transition-all flex items-center justify-center gap-2 mx-auto"
+          >
+            Submit now →
+          </button>
+        </form>
+
+        {/* Status message */}
+        {result && (
+          <p className="mt-6 text-white font-medium text-lg">{result}</p>
+        )}
+      </div>
     </div>
-  )
+    <Footer/>
+    </>
+  );
 }
-
-export default ContactPage
