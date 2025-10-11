@@ -94,7 +94,7 @@ export default function MoviesSection() {
       
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
         {movies.map((movie) => (
-          <Link key={movie.id} to={`/anime/${movie.id}`}>
+          <Link key={movie.id} to={`/home/movies/${movie.id}`}>
             <Card className="rounded-lg border bg-card text-card-foreground shadow-sm anime-card group overflow-hidden hover:shadow-xl transition-all duration-300">
               <div className="aspect-[3/4] relative overflow-hidden bg-muted">
                 {movie.thumbnail_url ? (

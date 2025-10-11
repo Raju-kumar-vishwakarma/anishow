@@ -1,6 +1,9 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import React, { useState } from "react";
+import { Search, Play, Star, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from 'react-router-dom';
 
 export default function Contact() {
   const [result, setResult] = useState<string>("");
@@ -36,7 +39,16 @@ export default function Contact() {
   return (
     <>
     <Header/>
+    <div className=" mt-6">
+          <Button asChild variant="ghost" className="text-primary hover:bg-primary/10">
+            <Link to="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
       <div className="min-h-screen flex flex-col items-center justify-center bg-clip-text from-white to-gray-100 text-center px-6 py-12">
+        
       <div className="max-w-2xl w-full">
         {/* Header */}
         <p className="text-white mb-2 text-sm">Connect With Me</p>
@@ -91,7 +103,7 @@ export default function Contact() {
         )}
       </div>
     </div>
-    <Footer/>
+    {/* <Footer/> */}
     </>
   );
 }

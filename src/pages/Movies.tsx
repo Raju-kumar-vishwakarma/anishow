@@ -6,7 +6,8 @@ import Footer from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Search, Play, Star } from "lucide-react";
+import { Search, Play, Star, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Movie {
   id: string;
@@ -24,10 +25,12 @@ export default function Movies() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
+  // 🔹 Load all movies on mount
   useEffect(() => {
     loadMovies();
   }, []);
 
+  // 🔹 Filter when search changes
   useEffect(() => {
     if (searchQuery.trim()) {
       const filtered = movies.filter((movie) =>
@@ -39,14 +42,18 @@ export default function Movies() {
     }
   }, [searchQuery, movies]);
 
+  // 🔹 Fetch anime movies from Supabase
   const loadMovies = async () => {
-    const { data } = await supabase
+    setLoading(true);
+    const { data, error } = await supabase
       .from("anime")
       .select("*")
       .eq("type", "movie")
       .order("rating", { ascending: false, nullsFirst: false });
 
-    if (data) {
+    if (error) {
+      console.error("Error fetching movies:", error.message);
+    } else if (data) {
       setMovies(data);
       setFilteredMovies(data);
     }
@@ -58,6 +65,17 @@ export default function Movies() {
       <Header />
 
       <main className="container mx-auto px-4 py-12">
+        {/* 🔙 Back button */}
+        <div className="mb-6">
+          <Button asChild variant="ghost" className="text-primary hover:bg-primary/10">
+            <Link to="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+
+        {/* 🔹 Title & Search */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">Anime Movies</h1>
           <p className="text-muted-foreground mb-6">
@@ -76,6 +94,7 @@ export default function Movies() {
           </div>
         </div>
 
+        {/* 🔹 Loading State */}
         {loading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
@@ -84,35 +103,36 @@ export default function Movies() {
           <div className="text-center py-12">
             <p className="text-muted-foreground">
               {searchQuery
-                ? "No movies found matching your search"
-                : "No movies available"}
+                ? "No movies found matching your search."
+                : "No movies available."}
             </p>
           </div>
         ) : (
+          // 🔹 Movie Grid
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
             {filteredMovies.map((movie) => (
-              <Link key={movie.id} to={`/anime/${movie.id}`}>
-                <Card className="anime-card group relative anime-card group overflow-hidden hover:shadow-xl transition-all duration-300">
+              <Link key={movie.id} to={`/movies/${movie.id}`}>
+                <Card className="group relative overflow-hidden hover:shadow-xl transition-all duration-300">
                   <div className="aspect-[3/4] relative overflow-hidden bg-muted">
                     {movie.thumbnail_url ? (
                       <>
                         <img
                           src={movie.thumbnail_url}
                           alt={movie.title}
-                          className="anime-img w-full h- object-cover"
+                          className="w-full h-full object-cover"
                         />
-                        <div className="anime-overlay" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </>
                     ) : (
-                      <div className="w-full h-full bg-gradient-anime flex items-center justify-center">
+                      <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-600 flex items-center justify-center">
                         <Play className="w-16 h-16 text-primary/50" />
                       </div>
                     )}
 
                     {movie.rating && (
                       <div className="absolute top-3 right-3 z-10">
-                        <Badge className="bg-primary/90 text-primary-foreground">
-                          <Star className="w-3 h-3 mr-1" />
+                        <Badge className="bg-primary/90 text-primary-foreground flex items-center gap-1">
+                          <Star className="w-3 h-3" />
                           {movie.rating}
                         </Badge>
                       </div>

@@ -24,6 +24,7 @@ import NotFound from "./pages/NotFound";
 import ContactPage from "./pages/ContactPage";
 import Manga from "./pages/Manga";
 import { Analytics } from "@vercel/analytics/react";
+import MoviesSectionLoading from "./components/Loading";
 
 const queryClient = new QueryClient();
 
@@ -39,13 +40,31 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/about" element={<About />} />
-            <Route path="/anime/:id" element={<AnimeDetail />} />
             <Route path="/watchlist" element={<Watchlist />} />
             <Route path="/history" element={<History />} />
+            <Route path="/contact" element={<ContactPage />} />
+
+            <Route path="/anime/:id" element={<AnimeDetail />} />
+            <Route path="movies/:id" element={<AnimeDetail />} />
+            
             <Route path="/series" element={<Series />} />
             <Route path="/movies" element={<Movies />} />
-            <Route path="/contact" element={<ContactPage />} />
+     
             <Route path="/manga" element={<Manga />} />
+
+
+            {/* home anime  */}
+            <Route path="/home/series/:id" element={<AnimeDetail />} />
+            <Route path="/home/movies/:id" element={<AnimeDetail />} />
+            <Route path="/home/latastanime/:id" element={<AnimeDetail />} />
+
+
+            <Route path="/home/movies" element={<Movies />} />
+            <Route path="/home/series" element={<Series />} />
+            {/* <Route path="/home" element={<Index />} /> */}
+            <Route path="/home/series/:id" element={<AnimeDetail />} />
+
+
 
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/categories" element={<Categories />} />

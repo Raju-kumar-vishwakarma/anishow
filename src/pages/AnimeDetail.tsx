@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import Header from "@/components/Header";
 import VideoPlayer from "@/components/VideoPlayer";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trash2 } from "lucide-react";
+import { Trash2, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 
 interface Anime {
   id: string;
@@ -34,30 +34,19 @@ export default function AnimeDetail() {
   const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-  // NEW STATE: Loading state specifically for the video player (2-second delay)
-  const [videoLoading, setVideoLoading] = useState(false); 
+  const [videoLoading, setVideoLoading] = useState(false);
 
   useEffect(() => {
-    if (id) {
-      loadAnimeData();
-    }
+    if (id) loadAnimeData();
   }, [id]);
 
-  // NEW useEffect: Manages the 2-second delay after initial data load or episode change
   useEffect(() => {
-    if (loading === false && currentEpisode) {
-      setVideoLoading(true); // Start the 2-second loading animation
-      const timer = setTimeout(() => {
-        setVideoLoading(false); 
-      }, 500); 
-
-      // Cleanup function to clear the timeout if the component unmounts or dependencies change
+    if (!loading && currentEpisode) {
+      setVideoLoading(true);
+      const timer = setTimeout(() => setVideoLoading(false), 500);
       return () => clearTimeout(timer);
-    } else if (currentEpisode === null) {
-        setVideoLoading(false); // No video, so no video loading
-    }
-  }, [loading, currentEpisode]); // Dependencies: runs after initial data load or when currentEpisode changes
-
+    } else if (!currentEpisode) setVideoLoading(false);
+  }, [loading, currentEpisode]);
 
   const loadAnimeData = async () => {
     const { data: animeData } = await supabase
@@ -86,7 +75,6 @@ export default function AnimeDetail() {
   const handleNextEpisode = () => {
     const nextIndex = currentEpisodeIndex + 1;
     if (nextIndex < episodes.length) {
-      // NOTE: Setting currentEpisode here will trigger the new useEffect for the 2-second delay
       setCurrentEpisode(episodes[nextIndex]);
       setCurrentEpisodeIndex(nextIndex);
     }
@@ -94,7 +82,7 @@ export default function AnimeDetail() {
 
   const handleDeleteEpisode = async (episodeId: string) => {
     if (!confirm("Are you sure you want to delete this episode?")) return;
-    
+
     const { error } = await supabase
       .from("anime_episodes")
       .delete()
@@ -111,10 +99,9 @@ export default function AnimeDetail() {
         title: "Success",
         description: "Episode deleted successfully",
       });
-      
       await loadAnimeData();
       if (currentEpisode?.id === episodeId && episodes.length > 1) {
-        setCurrentEpisode(episodes.find(ep => ep.id !== episodeId) || null);
+        setCurrentEpisode(episodes.find((ep) => ep.id !== episodeId) || null);
       }
     }
   };
@@ -123,7 +110,9 @@ export default function AnimeDetail() {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-4 py-12 text-center">Loading anime data...</div>
+        <div className="container mx-auto px-4 py-12 text-center">
+          Loading anime data...
+        </div>
       </div>
     );
   }
@@ -132,28 +121,40 @@ export default function AnimeDetail() {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-4 py-12 text-center">Anime not found</div>
+        <div className="container mx-auto px-4 py-12 text-center">
+          Anime not found
+        </div>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-background">
+      {/* ✅ Header always visible */}
       <Header />
-      <main className="container mx-auto px-4 py-12">
+
+      <main className="container mx-auto px-4 py-8">
+        {/* ✅ Back Button under Header */}
+        <div className="mb-6">
+          <Button asChild variant="ghost" className="text-primary hover:bg-primary/10">
+            <Link to="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             {currentEpisode ? (
-              // NEW CONDITION: Show loading card if videoLoading is true
               videoLoading ? (
                 <Card className="aspect-video flex items-center justify-center">
-                    <CardContent className="p-12 text-center">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-                        <p className="mt-4 text-lg text-muted-foreground">Loading video...</p>
-                    </CardContent>
+                  <CardContent className="p-12 text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                    <p className="mt-4 text-lg text-muted-foreground">Loading video...</p>
+                  </CardContent>
                 </Card>
               ) : (
-                // Original VideoPlayer component when not videoLoading
                 <VideoPlayer
                   videoUrl={currentEpisode.video_url}
                   title={`Episode ${currentEpisode.episode_number}${
@@ -161,7 +162,11 @@ export default function AnimeDetail() {
                   }`}
                   episodeId={currentEpisode.id}
                   animeId={anime.id}
-                  nextEpisodeId={currentEpisodeIndex + 1 < episodes.length ? episodes[currentEpisodeIndex + 1].id : undefined}
+                  nextEpisodeId={
+                    currentEpisodeIndex + 1 < episodes.length
+                      ? episodes[currentEpisodeIndex + 1].id
+                      : undefined
+                  }
                   onNextEpisode={handleNextEpisode}
                 />
               )
@@ -212,7 +217,11 @@ export default function AnimeDetail() {
                   {episodes.map((episode) => (
                     <div key={episode.id} className="flex gap-2">
                       <Button
-                        variant={currentEpisode?.id === episode.id ? "default" : "outline"}
+                        variant={
+                          currentEpisode?.id === episode.id
+                            ? "default"
+                            : "outline"
+                        }
                         className="flex-1 justify-start"
                         onClick={() => {
                           setCurrentEpisode(episode);
@@ -220,7 +229,9 @@ export default function AnimeDetail() {
                         }}
                       >
                         Episode {episode.episode_number}
-                        {episode.title && <span className="ml-2 truncate">- {episode.title}</span>}
+                        {episode.title && (
+                          <span className="ml-2 truncate">- {episode.title}</span>
+                        )}
                       </Button>
                       {isAdmin && (
                         <Button

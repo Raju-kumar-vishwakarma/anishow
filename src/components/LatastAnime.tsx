@@ -46,7 +46,7 @@ const LatastAnime = () => {
           ) : animeList.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
               {animeList.map((anime) => (
-                <Link key={anime.id} to={`/anime/${anime.id}`}>
+                <Link key={anime.id} to={`/home/latastanime/${anime.id}`}>
                   <Card className="anime-card group overflow-hidden hover:shadow-xl transition-all duration-300">
                     <div className="aspect-[3/4] relative overflow-hidden bg-muted">
                       {anime.thumbnail_url ? (

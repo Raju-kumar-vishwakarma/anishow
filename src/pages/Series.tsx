@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import PlayOverlay from "../components/ui/PlayOverlay";
+import { Search, Play, Star, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from 'react-router-dom';
 
 interface Series {
   id: string;
@@ -58,7 +59,16 @@ const Series = () => {
   return (
     <div className="min-h-screen bg-gradient-hero flex flex-col">
       <Header />
+      
       <main className="flex-1 container mx-auto px-4 py-12">
+         <div className="mb-6 ">
+          <Button asChild variant="ghost" className="text-primary hover:bg-primary/10">
+            <Link to="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
         <h1 className="text-4xl font-bold mb-4">Anime Serises</h1>
           <p className="text-muted-foreground mb-6">
             Discover amazing anime series from various genres
@@ -83,7 +93,7 @@ const Series = () => {
         ) : filteredSeries.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
             {filteredSeries.map((series) => (
-              <Link key={series.id} to={`/anime/${series.id}`}>
+              <Link key={series.id} to={`/series/${series.id}`}>
                 <Card className="anime-card group overflow-hidden hover:shadow-xl transition-all duration-300">
                   <div className="aspect-[3/4] relative overflow-hidden bg-muted">
                     {series.thumbnail_url ? (

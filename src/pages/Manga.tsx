@@ -1,7 +1,9 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import React, { useState, useEffect } from 'react'
-
+import { Search, Play, Star, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from 'react-router-dom';
 // Updated text constant
 const FULL_TEXT = "Coming Soon......" 
 // Define the delay (in milliseconds) between each character
@@ -47,9 +49,9 @@ const Manga = () => {
   }, [isTyping]); // Rerun this effect whenever isTyping changes
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
-      
+       
       {/* Centers content vertically and horizontally */}
       <section className="flex-grow flex items-center justify-center">
         <h3 className='p-4 text-red-600 text-3xl font-bold'>
