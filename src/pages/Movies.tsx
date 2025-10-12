@@ -111,7 +111,7 @@ export default function Movies() {
           // 🔹 Movie Grid
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
             {filteredMovies.map((movie) => (
-              <Link key={movie.id} to={`/movies/${movie.id}`}>
+              <Link key={movie.id} to={`/home/movies/${movie.id}`}>
                 <Card className="group relative overflow-hidden hover:shadow-xl transition-all duration-300">
                   <div className="aspect-[3/4] relative overflow-hidden bg-muted">
                     {movie.thumbnail_url ? (
