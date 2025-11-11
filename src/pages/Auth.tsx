@@ -122,20 +122,7 @@ export default function Auth() {
             )}
 
             {/* email */}
-            <div>
-
-              <div className="relative mt-2">
-                <Mail className="absolute left-3 top-3.5 text-[#7d7588] w-4 h-4" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email address"
-                  required
-                  className="w-full pl-10 pr-3 py-2.5 rounded-lg bg-white/5 text-[#e6e1f6] border border-[rgba(255,255,255,0.04)] focus:outline-none focus:ring-2 focus:ring-[rgba(107,33,168,0.18)]"
-                />
-              </div>
-            </div>
+           
 
             {/* password */}
             <div>
