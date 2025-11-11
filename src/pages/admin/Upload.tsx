@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Upload as UploadIcon } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 interface Anime {
   id: string;
@@ -188,8 +189,14 @@ export default function Upload() {
     <div className="min-h-screen bg-background">
       <Header />
       <main className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8">Upload Episode</h1>
-
+          <span className="flex items-center gap-4 mb-8">
+            <Button variant="outline" size="icon" onClick={() => navigate("/admin")}>
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+            <h1 className="text-4xl font-bold  via-electric to-hotpink bg-clip-text ">
+              Upload Episode
+            </h1>
+          </span>
         <Card className="max-w-2xl mx-auto">
           <CardHeader>
             <CardTitle>Upload Episode</CardTitle>

@@ -62,7 +62,7 @@ export default function FeaturedCarousel() {
         <CarouselContent>
           {featured.map((anime) => (
             <CarouselItem key={anime.id}>
-              <Card className="relative border-0 rounded-2xl h-auto min-h-[300px] sm:min-h-[450px] lg:min-h-[600px] flex mb-9">
+              <Card className="relative border-0 rounded-2xl h-auto min-h-[300px] sm:min-h-[450px] lg:min-h-[600px] flex mb-9 ">
                 <div
                   className="absolute inset-0 bg-cover bg-center"
                   style={{

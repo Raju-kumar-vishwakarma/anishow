@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Film, X } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 interface Category {
   id: string;
@@ -238,7 +239,15 @@ export default function UploadMovie() {
     <div className="min-h-screen bg-background">
       <Header />
       <main className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8">Upload Movie</h1>
+        <span className="flex items-center gap-4 mb-8">
+                    <Button variant="outline" size="icon" onClick={() => navigate("/admin")}>
+                      <ArrowLeft className="h-4 w-4" />
+                    </Button>
+                    <h1 className="text-4xl font-bold  via-electric to-hotpink bg-clip-text ">
+                     Upload Movie
+                    </h1>
+                  </span>
+
 
         <Card className="max-w-2xl mx-auto">
           <CardHeader>

@@ -13,6 +13,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Trash2, Edit, Upload as UploadIcon, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import EditAnimeDialog from "@/components/admin/EditAnimeDialog";
+import { ArrowLeft } from "lucide-react";
+
 
 interface Category {
   id: string;
@@ -201,7 +203,18 @@ export default function AnimeManagement() {
     <div className="min-h-screen bg-background">
       <Header />
       <main className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8">Manage Anime</h1>
+        <span className="flex items-center gap-4 mb-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => navigate("/admin")}
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <h1 className="text-4xl font-bold  via-electric to-hotpink bg-clip-text ">
+            Manage Anime
+          </h1>
+        </span>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>
@@ -247,11 +260,11 @@ export default function AnimeManagement() {
                   <div className="border rounded-md p-3 min-h-[100px] bg-background">
                     {selectedCategories.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-3">
-                        {selectedCategories.map(catId => {
-                          const cat = categories.find(c => c.id === catId);
+                        {selectedCategories.map((catId) => {
+                          const cat = categories.find((c) => c.id === catId);
                           return cat ? (
-                            <Badge 
-                              key={catId} 
+                            <Badge
+                              key={catId}
                               className="bg-primary text-primary-foreground px-3 py-1 cursor-pointer hover:bg-primary/80"
                               onClick={() => toggleCategory(catId)}
                             >
@@ -263,16 +276,18 @@ export default function AnimeManagement() {
                       </div>
                     )}
                     <div className="flex flex-wrap gap-2">
-                      {categories.filter(cat => !selectedCategories.includes(cat.id)).map((cat) => (
-                        <Badge 
-                          key={cat.id}
-                          variant="outline"
-                          className="cursor-pointer hover:bg-secondary"
-                          onClick={() => toggleCategory(cat.id)}
-                        >
-                          + {cat.name}
-                        </Badge>
-                      ))}
+                      {categories
+                        .filter((cat) => !selectedCategories.includes(cat.id))
+                        .map((cat) => (
+                          <Badge
+                            key={cat.id}
+                            variant="outline"
+                            className="cursor-pointer hover:bg-secondary"
+                            onClick={() => toggleCategory(cat.id)}
+                          >
+                            + {cat.name}
+                          </Badge>
+                        ))}
                     </div>
                   </div>
                 </div>
@@ -361,8 +376,8 @@ export default function AnimeManagement() {
                     className="flex items-center gap-3 p-3 border rounded-lg"
                   >
                     {anime.thumbnail_url && (
-                      <img 
-                        src={anime.thumbnail_url} 
+                      <img
+                        src={anime.thumbnail_url}
                         alt={anime.title}
                         className="w-16 h-16 object-cover rounded"
                       />
@@ -370,7 +385,8 @@ export default function AnimeManagement() {
                     <div className="flex-1">
                       <h3 className="font-semibold">{anime.title}</h3>
                       <p className="text-sm text-muted-foreground">
-                        {anime.categories?.name} • Rating: {anime.rating || "N/A"}
+                        {anime.categories?.name} • Rating:{" "}
+                        {anime.rating || "N/A"}
                       </p>
                     </div>
                     <div className="flex gap-2">
@@ -401,7 +417,7 @@ export default function AnimeManagement() {
           </Card>
         </div>
       </main>
-      
+
       <EditAnimeDialog
         anime={editingAnime}
         categories={categories}

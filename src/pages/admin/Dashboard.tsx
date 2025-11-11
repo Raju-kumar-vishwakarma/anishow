@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload, ListVideo, FolderTree, Clapperboard, PlaySquare, Film } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export default function AdminDashboard() {
   const { isAdmin, loading } = useAuth();
@@ -28,9 +29,18 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-background">
       <Header />
       <main className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-primary via-electric to-hotpink bg-clip-text text-transparent">
-          Admin Dashboard
-        </h1>
+        <span className="flex items-center gap-4 mb-8">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => navigate("/")}
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                  </Button>
+                  <h1 className="text-4xl font-bold  via-electric to-hotpink bg-clip-text ">
+                    Admin Dashboard
+                  </h1>
+                </span>
         
         {/* Series Section */}
         <div className="mb-12">

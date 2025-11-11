@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trash2, Plus } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 interface Category {
   id: string;
@@ -103,7 +104,19 @@ export default function Categories() {
     <div className="min-h-screen bg-background">
       <Header />
       <main className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8">Manage Categories</h1>
+        <span className="flex items-center gap-4 mb-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => navigate("/admin")}
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <h1 className="text-4xl font-bold  via-electric to-hotpink bg-clip-text ">
+            Manage Categories
+          </h1>
+        </span>
+
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>

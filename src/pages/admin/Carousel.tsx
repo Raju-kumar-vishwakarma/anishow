@@ -205,11 +205,18 @@ export default function CarouselManagement() {
       <Header />
       <main className="container mx-auto px-4 py-8">
         <div className="flex items-center gap-4 mb-8">
-          <Button variant="ghost" onClick={() => navigate("/admin")}>
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Dashboard
+          <span className="flex items-center gap-4 mb-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => navigate("/admin")}
+          >
+            <ArrowLeft className="h-4 w-4" />
           </Button>
-          <h1 className="text-3xl font-bold">Manage Featured Carousel</h1>
+          <h1 className="text-4xl font-bold  via-electric to-hotpink bg-clip-text ">
+            Manage Featured Carousel
+          </h1>
+        </span>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">

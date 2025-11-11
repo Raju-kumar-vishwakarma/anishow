@@ -6,7 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Trash2 } from "lucide-react";
+import { Trash2,ArrowLeft } from "lucide-react";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -91,12 +92,14 @@ export default function Movies() {
       <Header />
       <main className="container mx-auto px-4 py-12">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-electric to-hotpink bg-clip-text text-transparent">
-            Manage Movies
-          </h1>
-          <Button variant="outline" onClick={() => navigate("/admin")}>
-            Back to Dashboard
-          </Button>
+           <span className="flex items-center gap-4 mb-8">
+                      <Button variant="outline" size="icon" onClick={() => navigate("/admin")}>
+                        <ArrowLeft className="h-4 w-4" />
+                      </Button>
+                      <h1 className="text-4xl font-bold  via-electric to-hotpink bg-clip-text ">
+                       Manage Movies
+                      </h1>
+                    </span>
         </div>
 
         <Card>
@@ -145,7 +148,7 @@ export default function Movies() {
                 ))}
               </div>
             )}
-          </CardContent>
+          </CardContent> 
         </Card>
 
         <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
