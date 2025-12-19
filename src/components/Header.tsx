@@ -74,29 +74,29 @@ const Header: React.FC = () => {
     // run once to set initial state (handles loading mid-scroll)
     handler!();
 
-    // cleanup
-    return () => {
+    return (
+      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 shadow-lg rounded-b-xl ">
       if (container === window) {
         window.removeEventListener("scroll", handler!);
       } else {
         (container as HTMLElement).removeEventListener("scroll", handler!);
       }
-    };
-    // We do not include handlerRef or getScrollContainer in deps intentionally:
-    // - container detection only needs to run once on mount
+                <h1 className="text-2xl font-extrabold cursor-pointer bg-gradient-to-r from-primary via-electric to-hotpink bg-clip-text text-transparent tracking-wide">
+                  AniShow
+                </h1>
     // - if your app swaps the scroll container dynamically, you can reload / adjust
   }, []);
 
-  const navItems = useMemo(
+              <nav className="hidden md:flex gap-2 ">
     () => [
       { label: "Home", to: "/" },
       { label: "Series", to: "/series" },
       { label: "Movies", to: "/movies" },
-      { label: "Manga", to: "/manga" },
-    ],
-    []
-  );
-
+                    className={`px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/20 transition-all duration-200 ${
+                      isActive(item.to)
+                        ? "text-primary bg-primary/10 font-semibold shadow-sm"
+                        : ""
+                    }`}
   const isActive = (to: string) => {
     if (to === "/") return location.pathname === "/";
     return location.pathname === to || location.pathname.startsWith(to + "/");
@@ -109,9 +109,12 @@ const Header: React.FC = () => {
           {/* Logo + Nav */}
           <div className="flex items-center gap-4">
             <Link to="/">
-              <h1 className="text-2xl font-bold bg-clip-text text-white cursor-pointer">
-                AniShow
-              </h1>
+              <div className="relative">
+                <h1 className="text-2xl font-bold bg-clip-text text-white cursor-pointer">
+                  AniShow
+                </h1>
+                <span className="santa-cap">🎅</span>
+              </div>
             </Link>
 
             {/* Desktop Nav */}
@@ -144,7 +147,7 @@ const Header: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden sm:block flex-1">
+            <div className="hidden sm:block w-[320px]">
               <SearchBar />
             </div>
 
@@ -190,7 +193,7 @@ const Header: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button asChild className="hidden sm:flex">
+              <Button asChild className="hidden sm:flex transition-transform hover:scale-[1.02]">
                 <Link to="/auth">Login</Link>
               </Button>
             )}

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Mail, Lock, User } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import Snowfall from "react-snowfall";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -69,6 +70,20 @@ export default function Auth() {
 
   return (
     <div className="dark min-h-screen flex items-center justify-center px-4 relative">
+      <Snowfall
+        color="#fff"
+        snowflakeCount={50}
+        speed={[0.5, 1.0]}
+        wind={[-0.5, 0.5]}
+        radius={[0.5, 2.0]}
+        style={{
+          position: 'fixed',
+          width: '100vw',
+          height: '100vh',
+          zIndex: 9999,
+          pointerEvents: 'none'
+        }}
+      />
 
 
       {/* main container */}

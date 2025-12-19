@@ -2,6 +2,7 @@ import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Home, HelpCircle } from "lucide-react";
+import Snowfall from "react-snowfall";
 
 const NotFound = () => {
   const location = useLocation();
@@ -12,6 +13,20 @@ const NotFound = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[hsl(250,60%,12%)] to-[hsl(250,60%,6%)]">
+      <Snowfall
+        color="#fff"
+        snowflakeCount={50}
+        speed={[0.5, 1.0]}
+        wind={[-0.5, 0.5]}
+        radius={[0.5, 2.0]}
+        style={{
+          position: 'fixed',
+          width: '100vw',
+          height: '100vh',
+          zIndex: 9999,
+          pointerEvents: 'none'
+        }}
+      />
       {/* Animated background dots */}
       <div className="absolute inset-0">
         {[...Array(30)].map((_, i) => (

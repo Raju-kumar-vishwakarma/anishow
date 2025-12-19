@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Trash2, Calendar } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
+import Snowfall from "react-snowfall";
 
 interface HistoryItem {
   id: string;

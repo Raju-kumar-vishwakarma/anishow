@@ -8,6 +8,7 @@ import PlayOverlay from "../components/ui/PlayOverlay";
 import { Search, Play, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import Snowfall from "react-snowfall";
 
 interface Series {
   id: string;
@@ -58,6 +59,20 @@ const Series = () => {
 
   return (
     <div className="min-h-screen bg-gradient-hero flex flex-col">
+      <Snowfall
+        color="#fff"
+        snowflakeCount={50}
+        speed={[0.5, 1.0]}
+        wind={[-0.5, 0.5]}
+        radius={[0.5, 2.0]}
+        style={{
+          position: 'fixed',
+          width: '100vw',
+          height: '100vh',
+          zIndex: 9999,
+          pointerEvents: 'none'
+        }}
+      />
       <Header />
       
       <main className="flex-1 container mx-auto px-4 py-12">

@@ -130,7 +130,7 @@ export default function Episodes() {
           <Button variant="outline" size="icon" onClick={() => navigate("/admin")}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <h1 className="text-4xl font-bold  via-electric to-hotpink bg-clip-text ">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-electric to-hotpink bg-clip-text text-transparent">
             Manage Episodes
           </h1>
         </div>

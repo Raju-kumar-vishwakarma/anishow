@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Search, Play, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import Snowfall from "react-snowfall";
 // Updated text constant
 const FULL_TEXT = "Coming Soon......" 
 // Define the delay (in milliseconds) between each character
@@ -50,6 +51,20 @@ const Manga = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <Snowfall
+        color="#fff"
+        snowflakeCount={50}
+        speed={[0.5, 1.0]}
+        wind={[-0.5, 0.5]}
+        radius={[0.5, 2.0]}
+        style={{
+          position: 'fixed',
+          width: '100vw',
+          height: '100vh',
+          zIndex: 9999,
+          pointerEvents: 'none'
+        }}
+      />
       <Header />
        
       {/* Centers content vertically and horizontally */}

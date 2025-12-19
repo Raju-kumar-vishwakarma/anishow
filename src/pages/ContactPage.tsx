@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Search, Play, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import Snowfall from "react-snowfall";
 
 export default function Contact() {
   const [result, setResult] = useState<string>("");
@@ -38,6 +39,20 @@ export default function Contact() {
 
   return (
     <>
+    <Snowfall
+      color="#fff"
+      snowflakeCount={50}
+      speed={[0.5, 1.0]}
+      wind={[-0.5, 0.5]}
+      radius={[0.5, 2.0]}
+      style={{
+        position: 'fixed',
+        width: '100vw',
+        height: '100vh',
+        zIndex: 9999,
+        pointerEvents: 'none'
+      }}
+    />
     <Header/>
     <div className=" mt-6">
           <Button asChild variant="ghost" className="text-primary hover:bg-primary/10">

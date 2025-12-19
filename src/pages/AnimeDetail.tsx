@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trash2, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
+import Snowfall from "react-snowfall";
 
 interface Anime {
   id: string;
@@ -130,6 +131,20 @@ export default function AnimeDetail() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Snowfall
+        color="#fff"
+        snowflakeCount={50}
+        speed={[0.5, 1.0]}
+        wind={[-0.5, 0.5]}
+        radius={[0.5, 2.0]}
+        style={{
+          position: 'fixed',
+          width: '100vw',
+          height: '100vh',
+          zIndex: 9999,
+          pointerEvents: 'none'
+        }}
+      />
       {/* ✅ Header always visible */}
       <Header />
 

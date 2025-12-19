@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Search, Play, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Snowfall from "react-snowfall";
 
 interface Movie {
   id: string;
@@ -62,6 +63,20 @@ export default function Movies() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Snowfall
+        color="#fff"
+        snowflakeCount={50}
+        speed={[0.5, 1.0]}
+        wind={[-0.5, 0.5]}
+        radius={[0.5, 2.0]}
+        style={{
+          position: 'fixed',
+          width: '100vw',
+          height: '100vh',
+          zIndex: 9999,
+          pointerEvents: 'none'
+        }}
+      />
       <Header />
 
       <main className="container mx-auto px-4 py-12">

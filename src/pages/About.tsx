@@ -1,9 +1,24 @@
 import Header from "@/components/Header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Snowfall from "react-snowfall";
 
 export default function About() {
   return (
     <div className="min-h-screen bg-background">
+      <Snowfall
+        color="#fff"
+        snowflakeCount={50}
+        speed={[0.5, 1.0]}
+        wind={[-0.5, 0.5]}
+        radius={[0.5, 2.0]}
+        style={{
+          position: 'fixed',
+          width: '100vw',
+          height: '100vh',
+          zIndex: 9999,
+          pointerEvents: 'none'
+        }}
+      />
       <Header />
       <main className="container mx-auto px-4 py-12">
         <Card className="max-w-4xl mx-auto">
