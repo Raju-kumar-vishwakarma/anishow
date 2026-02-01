@@ -4,10 +4,7 @@
 # Updated: 2026-02-01
 
 # Google AdSense
-google.com, ca-pub-3831019899205461, DIRECT, f08c47fec0942fa0
-
-# Google Ad Manager (if applicable)
-google.com, ca-pub-3831019899205461, RESELLER, f08c47fec0942fa0
+google.com, pub-3831019899205461, DIRECT, f08c47fec0942fa0
 
 # Pubmatic (if using)
 # openx.com, 540031928, RESELLER, 6a698e2ec38604c6
