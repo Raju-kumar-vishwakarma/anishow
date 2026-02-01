@@ -8,7 +8,9 @@ import PlayOverlay from "../components/ui/PlayOverlay";
 import { Search, Play, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import { SeriesAd, GridAd } from "@/components/AdPlacements";
 import Snowfall from "react-snowfall";
+import { trackPageView, trackSearch } from "@/lib/analytics";
 
 interface Series {
   id: string;
@@ -27,6 +29,7 @@ const Series = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
+    trackPageView('/series', 'AniShow - Series');
     loadSeries();
   }, []);
 
@@ -95,57 +98,64 @@ const Series = () => {
             type="text"
             placeholder="Search series..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              trackSearch(e.target.value);
+            }}
             className="pl-10 bg-background/50 "
           />
         </div>
 
+        <SeriesAd className="my-6" />
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
         ) : filteredSeries.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-            {filteredSeries.map((series) => (
-              <Link key={series.id} to={`/home/series/${series.id}`}>
-                <Card className="anime-card group overflow-hidden hover:shadow-xl transition-all duration-300">
-                  <div className="aspect-[3/4] relative overflow-hidden bg-muted">
-                    {series.thumbnail_url ? (
-                      <>
-                        <img
-                          src={series.thumbnail_url}
-                          alt={series.title}
-                          className="anime-img w-full h-full object-cover"
-                        />
-                        <div className="anime-overlay" />
-                      </>
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-muted-foreground">No Image</span>
-                      </div>
-                    )}
-                      <PlayOverlay />
-                  </div>
-                  <CardContent className="p-3">
-                    <h3 className="font-semibold text-sm truncate">
-                      {series.title}
-                    </h3>
-                    {series.release_year && (
-                      <p className="text-xs text-muted-foreground">
-                        {series.release_year}
-                      </p>
-                    )}
-                    {series.rating && (
-                      <p className="text-xs text-primary">
-                        ★ {series.rating}/10
-                      </p>
-                    )}
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+              {filteredSeries.map((series) => (
+                <Link key={series.id} to={`/home/series/${series.id}`}>
+                  <Card className="anime-card group overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div className="aspect-[3/4] relative overflow-hidden bg-muted">
+                      {series.thumbnail_url ? (
+                        <>
+                          <img
+                            src={series.thumbnail_url}
+                            alt={series.title}
+                            className="anime-img w-full h-full object-cover"
+                          />
+                          <div className="anime-overlay" />
+                        </>
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="text-muted-foreground">No Image</span>
+                        </div>
+                      )}
+                        <PlayOverlay />
+                    </div>
+                    <CardContent className="p-3">
+                      <h3 className="font-semibold text-sm truncate">
+                        {series.title}
+                      </h3>
+                      {series.release_year && (
+                        <p className="text-xs text-muted-foreground">
+                          {series.release_year}
+                        </p>
+                      )}
+                      {series.rating && (
+                        <p className="text-xs text-primary">
+                          ★ {series.rating}/10
+                        </p>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+            <GridAd className="my-8" />
+          </>
         ) : (
           <div className="text-center py-20">
             <p className="text-muted-foreground text-lg">

@@ -1,0 +1,34 @@
+# ads.txt
+# Ads.txt file for Google AdSense - Place in root directory (public folder)
+# This file authorizes the sale of digital inventory
+# Updated: 2026-02-01
+
+# Google AdSense
+google.com, ca-pub-3831019899205461, DIRECT, f08c47fec0942fa0
+
+# Google Ad Manager (if applicable)
+google.com, ca-pub-3831019899205461, RESELLER, f08c47fec0942fa0
+
+# Pubmatic (if using)
+# openx.com, 540031928, RESELLER, 6a698e2ec38604c6
+
+# OpenX (if using)
+# openx.com, 540031928, RESELLER, 6a698e2ec38604c6
+
+# Rubicon Project (if using)
+# rubiconproject.com, YOUR_ACCOUNT_ID, RESELLER, 0bfd66d529a55807
+
+# AppNexus (if using)
+# appnexus.com, YOUR_ACCOUNT_ID, RESELLER, f5ab79cb980f11d1
+
+# Index Exchange (if using)
+# indexexchange.com, YOUR_ACCOUNT_ID, RESELLER, 50b1c356f2c5c712
+
+# Sovrn (if using)
+# sovrn.com, YOUR_ACCOUNT_ID, RESELLER, fafdf38b16bf6b2b
+
+# Conversant (if using)
+# conversantmedia.com, YOUR_ACCOUNT_ID, RESELLER, 03113cd04947b4ca
+
+# Improve Digital (if using)
+# improvedigital.com, YOUR_ACCOUNT_ID, RESELLER, a5eb6952d3e4e7b5

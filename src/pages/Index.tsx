@@ -6,9 +6,16 @@ import Footer from "@/components/Footer";
 import LatastAnime from "@/components/LatastAnime";
 import Hr from "../components/Hr";
 import Aniserise from "@/components/AniSerise";
+import { HeaderAd, GridAd, ResponsiveAd } from "@/components/AdPlacements";
 import Snowfall from "react-snowfall";
+import { useEffect } from "react";
+import { trackPageView } from "@/lib/analytics";
 
 const Index = () => {
+  useEffect(() => {
+    trackPageView('/', 'AniShow - Home');
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-hero flex flex-col">
       {/* Subtle Snowfall Effect */}
@@ -29,13 +36,16 @@ const Index = () => {
       
       <Header />
       <main className="flex-1">
+        <HeaderAd className="my-4" />
         <FeaturedCarousel />
         <ContinueWatching />
         <LatastAnime />
         <Hr />
+        <GridAd className="my-8" />
         <Aniserise />
         <Hr />
         <MoviesSection />
+        <ResponsiveAd className="my-8" />
       </main>
       <Footer />
     </div>

@@ -8,7 +8,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Search, Play, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SeriesAd, GridAd } from "@/components/AdPlacements";
 import Snowfall from "react-snowfall";
+import { trackPageView, trackSearch } from "@/lib/analytics";
 
 interface Movie {
   id: string;
@@ -28,6 +30,7 @@ export default function Movies() {
 
   // 🔹 Load all movies on mount
   useEffect(() => {
+    trackPageView('/movies', 'AniShow - Movies');
     loadMovies();
   }, []);
 
@@ -103,11 +106,16 @@ export default function Movies() {
               type="text"
               placeholder="Search movies..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                trackSearch(e.target.value);
+              }}
               className="pl-10"
             />
           </div>
         </div>
+
+        <SeriesAd className="my-6" />
 
         {/* 🔹 Loading State */}
         {loading ? (
@@ -124,17 +132,18 @@ export default function Movies() {
           </div>
         ) : (
           // 🔹 Movie Grid
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-            {filteredMovies.map((movie) => (
-              <Link key={movie.id} to={`/home/movies/${movie.id}`}>
-                <Card className="group relative overflow-hidden hover:shadow-xl transition-all duration-300">
-                  <div className="aspect-[3/4] relative overflow-hidden bg-muted">
-                    {movie.thumbnail_url ? (
-                      <>
-                        <img
-                          src={movie.thumbnail_url}
-                          alt={movie.title}
-                          className="w-full h-full object-cover"
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+              {filteredMovies.map((movie) => (
+                <Link key={movie.id} to={`/home/movies/${movie.id}`}>
+                  <Card className="group relative overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div className="aspect-[3/4] relative overflow-hidden bg-muted">
+                      {movie.thumbnail_url ? (
+                        <>
+                          <img
+                            src={movie.thumbnail_url}
+                            alt={movie.title}
+                            className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </>
@@ -171,7 +180,9 @@ export default function Movies() {
                 </Card>
               </Link>
             ))}
-          </div>
+            </div>
+            <GridAd className="my-8" />
+          </>
         )}
       </main>
 

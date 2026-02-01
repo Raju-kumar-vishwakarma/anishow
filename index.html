@@ -20,11 +20,26 @@
   <meta name="google-site-verification" content="ADD_YOUR_GOOGLE_VERIFICATION_CODE_HERE" />
   <meta name="msvalidate.01" content="ADD_YOUR_BING_VERIFICATION_CODE_HERE" />
 
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WNP3FGKY3M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-WNP3FGKY3M', {
+      'page_path': window.location.pathname
+    });
+  </script>
+
   <title>AniShow - Watch Anime in Hindi, English & Japanese on AniShow</title>
   
   <!-- Preconnect & DNS Prefetch for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
   <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   
@@ -33,6 +48,10 @@
 
   <!-- AMP Ad Library (for AMP pages) -->
   <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+
+    <!-- Standard AdSense Script (for non-AMP pages) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3831019899205461"
+      crossorigin="anonymous"></script>
 
   <!-- Basic SEO Meta Tags -->
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />

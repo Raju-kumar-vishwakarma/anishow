@@ -8,7 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trash2, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
+import { ArticleAd } from "@/components/AdPlacements";
 import Snowfall from "react-snowfall";
+import { trackPageView, trackAnimeView } from "@/lib/analytics";
 
 interface Anime {
   id: string;
@@ -38,7 +40,10 @@ export default function AnimeDetail() {
   const [videoLoading, setVideoLoading] = useState(false);
 
   useEffect(() => {
-    if (id) loadAnimeData();
+    if (id) {
+      loadAnimeData();
+      trackPageView(`/anime/${id}`, 'AniShow - Anime Detail');
+    }
   }, [id]);
 
   useEffect(() => {
@@ -62,7 +67,10 @@ export default function AnimeDetail() {
       .eq("anime_id", id)
       .order("episode_number");
 
-    if (animeData) setAnime(animeData);
+    if (animeData) {
+      setAnime(animeData);
+      trackAnimeView(animeData.id, animeData.title);
+    }
     if (episodesData) {
       setEpisodes(episodesData);
       if (episodesData.length > 0) {
@@ -159,6 +167,9 @@ export default function AnimeDetail() {
           </Button>
         </div>
 
+        {/* Ad Placement - Before Content */}
+        <ArticleAd className="my-6" />
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             {currentEpisode ? (
@@ -192,6 +203,9 @@ export default function AnimeDetail() {
                 </CardContent>
               </Card>
             )}
+
+            {/* Ad Placement - After Video Player */}
+            <ArticleAd className="my-6" />
 
             <Card className="mt-6">
               <CardHeader>
