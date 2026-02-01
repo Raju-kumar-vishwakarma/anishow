@@ -149,7 +149,8 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
-          <p>&copy; 2025 AniShow. All rights reserved.</p>
+          <p>&copy; 2026 AniShow. All rights reserved.</p>
+          <p className="mt-2 text-sm">Developed by <span className="text-primary font-semibold">Raju Vishwakarma</span></p>
         </div>
       </div>
     </footer>

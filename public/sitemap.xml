@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0">
+
+  <!-- Homepage - Highest Priority -->
+  <url>
+    <loc>https://anishow.com/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Main Pages -->
+  <url>
+    <loc>https://anishow.com/series</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/movies</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/manga</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Feature Pages -->
+  <url>
+    <loc>https://anishow.com/watchlist</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/history</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/continue-watching</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Information Pages -->
+  <url>
+    <loc>https://anishow.com/about</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/contact</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://anishow.com/terms-of-service</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/privacy-policy</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/dmca</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Authentication Pages -->
+  <url>
+    <loc>https://anishow.com/auth</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Popular Anime Series (Examples - Add your actual anime) -->
+  <url>
+    <loc>https://anishow.com/anime/naruto</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://anishow.com/images/naruto.jpg</image:loc>
+      <image:title>Naruto Anime Series</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/anime/one-piece</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://anishow.com/images/one-piece.jpg</image:loc>
+      <image:title>One Piece Anime Series</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/anime/dragon-ball-z</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://anishow.com/images/dragon-ball-z.jpg</image:loc>
+      <image:title>Dragon Ball Z Anime Series</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/anime/attack-on-titan</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://anishow.com/images/attack-on-titan.jpg</image:loc>
+      <image:title>Attack on Titan Anime Series</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/anime/demon-slayer</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://anishow.com/images/demon-slayer.jpg</image:loc>
+      <image:title>Demon Slayer Anime Series</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/anime/jujutsu-kaisen</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://anishow.com/images/jujutsu-kaisen.jpg</image:loc>
+      <image:title>Jujutsu Kaisen Anime Series</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/anime/my-hero-academia</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://anishow.com/images/my-hero-academia.jpg</image:loc>
+      <image:title>My Hero Academia Anime Series</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/anime/death-note</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://anishow.com/images/death-note.jpg</image:loc>
+      <image:title>Death Note Anime Series</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/anime/tokyo-revengers</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://anishow.com/images/tokyo-revengers.jpg</image:loc>
+      <image:title>Tokyo Revengers Anime Series</image:title>
+    </image:image>
+  </url>
+
+  <!-- Category Pages -->
+  <url>
+    <loc>https://anishow.com/category/action</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/category/romance</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/category/comedy</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/category/drama</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/category/isekai</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/category/slice-of-life</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Language/Region Pages -->
+  <url>
+    <loc>https://anishow.com/language/hindi</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/language/english</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://anishow.com/language/japanese</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

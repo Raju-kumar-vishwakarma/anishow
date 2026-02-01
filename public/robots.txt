@@ -1,0 +1,51 @@
+# AniShow Robots.txt - Search Engine Crawler Configuration
+# This file tells search engines which pages they can and cannot crawl
+
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+Disallow: /*?*page=
+Disallow: /search
+Disallow: /auth/
+Disallow: /404
+Disallow: /500
+Crawl-delay: 1
+Request-rate: 30/1m
+
+# Google Bot - More aggressive crawling allowed
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Crawl-delay: 0
+Request-rate: unlimited
+
+# Bing Bot
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Crawl-delay: 1
+Request-rate: 30/1m
+
+# Block bad bots
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://anishow.com/sitemap.xml
+Sitemap: https://anishow.com/sitemap-anime.xml
+
+# Host declaration (optional but recommended)
+Host: https://anishow.com
