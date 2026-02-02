@@ -1,22 +1,23 @@
-import AmpAd from './AmpAd';
+import EzoicAd from './AmpAd';
 
 /**
- * Ad Slots Configuration
- * Different slots for different placements
+ * Ezoic Ad Placeholders Configuration
+ * Different placeholders for different placements
+ * Note: Replace these placeholder IDs with your actual Ezoic placeholder IDs from your Ezoic dashboard
  */
-export const AD_SLOTS = {
-  HEADER: '9718137832',        // Header/Hero section
-  BETWEEN_GRID: '1377012767',  // Between anime cards/grid
-  RESPONSIVE: '1336650167',    // Responsive ad (rspv format)
-  ARTICLE: '6314418751',       // Article/Detail page ad (rspv format)
-  SERIES: '9023568496',        // Series/Movies listing ad (rspv format) ✨ NEW
-  SIDEBAR: '1234567890',       // Sidebar (if added)
-  FOOTER: '0987654321',        // Footer area
-  VIDEO_PLAYER: '1111111111',  // Video player area
+export const EZOIC_PLACEHOLDERS = {
+  HEADER: 100,        // Header/Hero section
+  BETWEEN_GRID: 101,  // Between anime cards/grid
+  RESPONSIVE: 102,    // Responsive ad
+  ARTICLE: 103,       // Article/Detail page ad
+  SERIES: 104,        // Series/Movies listing ad
+  SIDEBAR: 105,       // Sidebar (if added)
+  FOOTER: 106,        // Footer area
+  VIDEO_PLAYER: 107,  // Video player area
 } as const;
 
 interface AdPlacementProps {
-  location: keyof typeof AD_SLOTS;
+  location: keyof typeof EZOIC_PLACEHOLDERS;
   className?: string;
 }
 
@@ -26,7 +27,7 @@ interface AdPlacementProps {
 export function HeaderAd({ className = '' }: { className?: string }) {
   return (
     <div className={`header-ad-wrapper py-4 ${className}`}>
-      <AmpAd slot={AD_SLOTS.HEADER} />
+      <EzoicAd placeholderId={EZOIC_PLACEHOLDERS.HEADER} />
     </div>
   );
 }
@@ -37,40 +38,40 @@ export function HeaderAd({ className = '' }: { className?: string }) {
 export function GridAd({ className = '' }: { className?: string }) {
   return (
     <div className={`grid-ad-wrapper py-8 ${className}`}>
-      <AmpAd slot={AD_SLOTS.BETWEEN_GRID} className="mx-auto" />
+      <EzoicAd placeholderId={EZOIC_PLACEHOLDERS.BETWEEN_GRID} className="mx-auto" />
     </div>
   );
 }
 
 /**
- * Responsive Ad - Responsive layout (rspv format)
+ * Responsive Ad - Responsive layout
  */
 export function ResponsiveAd({ className = '' }: { className?: string }) {
   return (
     <div className={`responsive-ad-wrapper py-6 ${className}`}>
-      <AmpAd slot={AD_SLOTS.RESPONSIVE} />
+      <EzoicAd placeholderId={EZOIC_PLACEHOLDERS.RESPONSIVE} />
     </div>
   );
 }
 
 /**
- * Article Ad - Display on article/detail pages (rspv format)
+ * Article Ad - Display on article/detail pages
  */
 export function ArticleAd({ className = '' }: { className?: string }) {
   return (
     <div className={`article-ad-wrapper py-6 ${className}`}>
-      <AmpAd slot={AD_SLOTS.ARTICLE} />
+      <EzoicAd placeholderId={EZOIC_PLACEHOLDERS.ARTICLE} />
     </div>
   );
 }
 
 /**
- * Series Ad - Display on series/movies listing pages (rspv format)
+ * Series Ad - Display on series/movies listing pages
  */
 export function SeriesAd({ className = '' }: { className?: string }) {
   return (
     <div className={`series-ad-wrapper py-6 ${className}`}>
-      <AmpAd slot={AD_SLOTS.SERIES} />
+      <EzoicAd placeholderId={EZOIC_PLACEHOLDERS.SERIES} />
     </div>
   );
 }
@@ -81,7 +82,7 @@ export function SeriesAd({ className = '' }: { className?: string }) {
 export function VideoPlayerAd({ className = '' }: { className?: string }) {
   return (
     <div className={`video-player-ad-wrapper py-4 ${className}`}>
-      <AmpAd slot={AD_SLOTS.VIDEO_PLAYER} />
+      <EzoicAd placeholderId={EZOIC_PLACEHOLDERS.VIDEO_PLAYER} />
     </div>
   );
 }
@@ -92,7 +93,7 @@ export function VideoPlayerAd({ className = '' }: { className?: string }) {
 export function FooterAd({ className = '' }: { className?: string }) {
   return (
     <div className={`footer-ad-wrapper py-4 ${className}`}>
-      <AmpAd slot={AD_SLOTS.FOOTER} />
+      <EzoicAd placeholderId={EZOIC_PLACEHOLDERS.FOOTER} />
     </div>
   );
 }
@@ -101,11 +102,11 @@ export function FooterAd({ className = '' }: { className?: string }) {
  * Generic Ad Placement
  */
 export function AdPlacement({ location, className = '' }: AdPlacementProps) {
-  const slot = AD_SLOTS[location];
+  const placeholderId = EZOIC_PLACEHOLDERS[location];
   
   return (
     <div className={`ad-placement ad-${location.toLowerCase()} ${className}`}>
-      <AmpAd slot={slot} />
+      <EzoicAd placeholderId={placeholderId} />
     </div>
   );
 }

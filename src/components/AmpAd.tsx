@@ -1,119 +1,47 @@
 import { useEffect } from 'react';
 
-// Define AMP ad element type
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'amp-ad': AmpAdElement;
-    }
-  }
-}
-
-interface AmpAdElement
-  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
-  width?: string | number;
-  height?: string | number;
-  type?: string;
-  'data-ad-client'?: string;
-  'data-ad-slot'?: string;
-  'data-auto-format'?: string;
-  'data-full-width'?: string;
-}
-
-interface AmpAdProps {
-  slot?: string;
+interface EzoicAdProps {
+  placeholderId: number;
   className?: string;
   style?: React.CSSProperties;
-  format?: 'mcrspv' | 'rspv' | 'auto';
 }
 
 /**
- * AMP Ad Component for displaying Google AdSense ads
- * Usage: <AmpAd slot="9718137832" format="rspv" />
+ * Ezoic Ad Component for displaying Ezoic ads
+ * Usage: <EzoicAd placeholderId={100} />
  * 
- * Note: This component renders AMP ad elements and requires the AMP script in the head tag.
- * The slot ID determines which ad unit is displayed.
+ * Note: This component renders Ezoic ad placeholders.
+ * The placeholderId determines which ad unit is displayed.
+ * Make sure to add the Ezoic script in your HTML head tag.
  */
-export default function AmpAd({ 
-  slot = '9718137832',
+export default function EzoicAd({ 
+  placeholderId = 100,
   className = '',
   style = {},
-  format = 'mcrspv'
-}: AmpAdProps) {
+}: EzoicAdProps) {
   
   useEffect(() => {
-    // Reload AMP ads if amp object is available
-    if ((window as any).amp && (window as any).amp.Ad) {
+    // Refresh Ezoic ads if ezstandalone object is available
+    if (typeof window !== 'undefined' && (window as any).ezstandalone) {
       try {
-        (window as any).amp.Ad.init();
+        (window as any).ezstandalone.cmd.push(function() {
+          (window as any).ezstandalone.define(placeholderId);
+          (window as any).ezstandalone.enable();
+          (window as any).ezstandalone.display();
+        });
       } catch (e) {
-        console.log('AMP ad initialization:', e);
+        console.log('Ezoic ad initialization:', e);
       }
     }
-  }, [slot, format]);
+  }, [placeholderId]);
 
   return (
-    <div className={`amp-ad-container ${className}`} style={style}>
-      <amp-ad 
-        width="100vw" 
-        height="320"
-        type="adsense"
-        data-ad-client="ca-pub-3831019899205461"
-        data-ad-slot={slot}
-        data-auto-format={format}
-        data-full-width=""
-      >
-        <div overflow=""></div>
-      </amp-ad>
-    </div>
-  );
-}
-
-/**
- * Alternative: Standard Google AdSense Component
- * If you prefer to use standard Google AdSense instead of AMP ads,
- * use the AdSenseAd component below and add the script to your page
- */
-
-interface AdSenseAdProps {
-  slot?: string;
-  className?: string;
-  style?: React.CSSProperties;
-  responsive?: boolean;
-}
-
-export function AdSenseAd({
-  slot = '9718137832',
-  className = '',
-  style = {},
-  responsive = true,
-}: AdSenseAdProps) {
-  
-  useEffect(() => {
-    // Push the ad to AdSense
-    const adsbygoogle = (window as any).adsbygoogle;
-    if (adsbygoogle) {
-      try {
-        adsbygoogle.push({});
-      } catch (e) {
-        console.log('AdSense push error:', e);
-      }
-    }
-  }, [slot, responsive]);
-
-  return (
-    <div className={`adsense-container ${className}`} style={style}>
-      <ins
-        className={`adsbygoogle ${responsive ? 'responsive-ad' : ''}`}
-        style={{
-          display: 'block',
-          ...style,
-        }}
-        data-ad-client="ca-pub-3831019899205461"
-        data-ad-slot={slot}
-        data-ad-format={responsive ? 'auto' : 'horizontal'}
-        data-full-width-responsive={responsive ? 'true' : 'false'}
-      ></ins>
+    <div 
+      className={`ezoic-ad-container ${className}`} 
+      style={style}
+      id={`ezoic-pub-ad-placeholder-${placeholderId}`}
+    >
+      {/* Ezoic ad will be injected here */}
     </div>
   );
 }
