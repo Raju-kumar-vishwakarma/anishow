@@ -5,6 +5,7 @@ import { Search, Play, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 import Snowfall from "react-snowfall";
+import Seo from "@/components/Seo";
 
 export default function Contact() {
   const [result, setResult] = useState<string>("");
@@ -39,6 +40,11 @@ export default function Contact() {
 
   return (
     <>
+    <Seo
+      title="Contact AniShow"
+      description="Get in touch with AniShow for questions, feedback, or collaborations."
+      canonical="https://anishow.com/contact"
+    />
     <Snowfall
       color="#fff"
       snowflakeCount={50}

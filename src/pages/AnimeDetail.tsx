@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { ArticleAd } from "@/components/AdPlacements";
 import Snowfall from "react-snowfall";
 import { trackPageView, trackAnimeView } from "@/lib/analytics";
+import Seo from "@/components/Seo";
 
 interface Anime {
   id: string;
@@ -118,6 +119,11 @@ export default function AnimeDetail() {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
+        <Seo
+          title="Loading Anime - AniShow"
+          description="Loading anime details on AniShow."
+          noIndex
+        />
         <Header />
         <div className="container mx-auto px-4 py-12 text-center">
           Loading anime data...
@@ -129,6 +135,11 @@ export default function AnimeDetail() {
   if (!anime) {
     return (
       <div className="min-h-screen bg-background">
+        <Seo
+          title="Anime Not Found - AniShow"
+          description="The requested anime could not be found."
+          noIndex
+        />
         <Header />
         <div className="container mx-auto px-4 py-12 text-center">
           Anime not found
@@ -139,6 +150,16 @@ export default function AnimeDetail() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title={`${anime.title} - AniShow`}
+        description={
+          anime.description?.trim()
+            ? anime.description
+            : `Watch ${anime.title} on AniShow. Stream episodes with high quality video and multiple language options.`
+        }
+        canonical={`https://anishow.com/anime/${anime.id}`}
+        type="video"
+      />
       <Snowfall
         color="#fff"
         snowflakeCount={50}

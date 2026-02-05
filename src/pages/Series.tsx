@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { SeriesAd, GridAd } from "@/components/AdPlacements";
 import Snowfall from "react-snowfall";
 import { trackPageView, trackSearch } from "@/lib/analytics";
+import Seo from "@/components/Seo";
 
 interface Series {
   id: string;
@@ -62,6 +63,11 @@ const Series = () => {
 
   return (
     <div className="min-h-screen bg-gradient-hero flex flex-col">
+      <Seo
+        title="Anime Series - AniShow"
+        description="Explore thousands of anime series on AniShow. Watch trending and classic series across all genres."
+        canonical="https://anishow.com/series"
+      />
       <Snowfall
         color="#fff"
         snowflakeCount={50}

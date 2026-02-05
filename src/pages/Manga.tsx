@@ -5,6 +5,7 @@ import { Search, Play, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 import Snowfall from "react-snowfall";
+import Seo from "@/components/Seo";
 // Updated text constant
 const FULL_TEXT = "Coming Soon......" 
 // Define the delay (in milliseconds) between each character
@@ -51,6 +52,11 @@ const Manga = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <Seo
+        title="Manga - AniShow"
+        description="Manga section is coming soon on AniShow. Stay tuned for updates."
+        canonical="https://anishow.com/manga"
+      />
       <Snowfall
         color="#fff"
         snowflakeCount={50}

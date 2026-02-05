@@ -10,6 +10,7 @@ import { HeaderAd, GridAd, ResponsiveAd } from "@/components/AdPlacements";
 import Snowfall from "react-snowfall";
 import { useEffect } from "react";
 import { trackPageView } from "@/lib/analytics";
+import Seo from "@/components/Seo";
 
 const Index = () => {
   useEffect(() => {
@@ -18,6 +19,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-hero flex flex-col">
+      <Seo
+        title="AniShow - Watch Anime in Hindi, English & Japanese"
+        description="Stream and download your favorite anime on AniShow in multiple languages including Hindi, English, and Japanese."
+        canonical="https://anishow.com/"
+      />
       {/* Subtle Snowfall Effect */}
       <Snowfall
         color="#fff"

@@ -1,10 +1,16 @@
 import Header from "@/components/Header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Snowfall from "react-snowfall";
+import Seo from "@/components/Seo";
 
 export default function About() {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="About AniShow"
+        description="Learn about AniShow, your ultimate destination for anime streaming in multiple languages."
+        canonical="https://anishow.com/about"
+      />
       <Snowfall
         color="#fff"
         snowflakeCount={50}

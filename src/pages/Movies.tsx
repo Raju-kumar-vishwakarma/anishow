@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { SeriesAd, GridAd } from "@/components/AdPlacements";
 import Snowfall from "react-snowfall";
 import { trackPageView, trackSearch } from "@/lib/analytics";
+import Seo from "@/components/Seo";
 
 interface Movie {
   id: string;
@@ -66,6 +67,11 @@ export default function Movies() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Anime Movies - AniShow"
+        description="Browse and stream top anime movies on AniShow. Discover new releases, classics, and fan favorites in multiple languages."
+        canonical="https://anishow.com/movies"
+      />
       <Snowfall
         color="#fff"
         snowflakeCount={50}
