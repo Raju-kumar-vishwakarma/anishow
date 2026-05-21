@@ -25,7 +25,7 @@ const Index = () => {
         canonical="https://anishow.com/"
       />
       {/* Subtle Snowfall Effect */}
-      <Snowfall
+      {/* <Snowfall
         color="#fff"
         snowflakeCount={50}
         speed={[0.5, 1.0]}
@@ -38,11 +38,11 @@ const Index = () => {
           zIndex: 9999,
           pointerEvents: 'none'
         }}
-      />
+      /> */}
       
       <Header />
       <main className="flex-1">
-        <HeaderAd className="my-4" />
+        {/* <HeaderAd className="my-4" /> */}
         <FeaturedCarousel />
         <ContinueWatching />
         <LatastAnime />
